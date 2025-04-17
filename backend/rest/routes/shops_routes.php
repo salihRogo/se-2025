@@ -9,3 +9,9 @@ Flight::route('GET /shops', function() {
 Flight::route('GET /nebitno', function() {
     echo "Ovo radi";
 });
+
+Flight::route('/', function() {
+    echo "Ovo valjda radi";
+});
+
+Flight::start();
