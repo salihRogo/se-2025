@@ -23,7 +23,7 @@ class Config
 
     public static function DB_PASSWORD()
     {
-        return 'rootroot';
+        return '';
     }
     
     public static function DB_HOST()
