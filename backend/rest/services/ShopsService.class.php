@@ -20,6 +20,11 @@ class ShopsService extends BaseService
         return $this->shopsDao->get_all_shops();
     }
 
+    public function get_shops_for_home()
+    {
+        return $this->shopsDao->get_shops_for_home();
+    }
+
     public function get_shop_by_id($id)
     {
         return $this->shopsDao->get_shop_by_id($id);

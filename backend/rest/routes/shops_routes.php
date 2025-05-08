@@ -2,11 +2,15 @@
 
 require_once __DIR__ . '/../services/ShopsService.class.php';
 
-Flight::route('GET /shops', function () {
+Flight::route('GET /shops', function() {
     Flight::json(Flight::shopsService()->get_all_shops());
 });
 
-Flight::route('GET /shops/@id', function ($id) {
+Flight::route('GET /home/shops', function() {
+    Flight::json(Flight::shopsService()->get_shops_for_home());
+});
+
+Flight::route('GET /shops/@id', function($id) {
     Flight::json(Flight::shopsService()->get_shop_by_id($id));
 });
 
