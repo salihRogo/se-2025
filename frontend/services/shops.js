@@ -15,7 +15,7 @@ function display_shops_on_home() {
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="cart.html" class="cart-btn">See more</a>
+                    <a href="#single-product" class="cart-btn">See more</a>
                 </div>
             `;
             homeShopsContainer.appendChild(shopDiv);
@@ -25,7 +25,7 @@ function display_shops_on_home() {
 
 function display_all_shops() {
     RestClient.get("shops", function(data) {
-        const shopsContainer = document.getElementById("shops");
+        const shopsContainer = document.getElementById("shops-container");
         shopsContainer.innerHTML = "";
 
         data.forEach((shop) => {
@@ -40,7 +40,7 @@ function display_all_shops() {
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="cart.html" class="cart-btn">See more</a>
+                    <a href="#single-product" class="cart-btn">See more</a>
                 </div>
             `;
             shopsContainer.appendChild(shopDiv);
