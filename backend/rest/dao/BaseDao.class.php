@@ -60,6 +60,7 @@ class BaseDao
     public function add($entity)
     {
         $query = "INSERT INTO " . $this->table_name . " (";
+        echo $entity;
         foreach ($entity as $column => $value) {
             $query .= $column . ', ';
         }
