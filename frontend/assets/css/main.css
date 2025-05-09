@@ -501,7 +501,7 @@ a.cart-btn {
 }
 
 .breadcrumb-bg {
-  background-image: url(../img/breadcrumb-bg.jpg);
+  background-image: url(../img/about-pozadina.jpeg);
 }
 
 .breadcrumb-text p {
@@ -2055,7 +2055,7 @@ a.video-play-btn {
 }
 
 .feature-bg:after {
-  background-image: url(../img/feature-bg.jpg);
+  background-image: url(../img/box.jpg);
   position: absolute;
   right: 0;
   top: 0;
@@ -2071,15 +2071,15 @@ a.video-play-btn {
 }
 
 .team-bg-1 {
-  background-image: url(../img/team/team-1.jpg);
+  background-image: url(../img/team/tim-1.jpg);
 }
 
 .team-bg-2 {
-  background-image: url(../img/team/team-2.jpg);
+  background-image: url(../img/team/tim-2.jpg);
 }
 
 .team-bg-3 {
-  background-image: url(../img/team/team-3.jpg);
+  background-image: url(../img/team/tim-3.jpg);
 }
 
 .team-bg-4 {
