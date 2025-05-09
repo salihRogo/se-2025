@@ -26,3 +26,36 @@ a.shop-btn.active {
   background-color: #f7c59f; /* Same as hover color */
   color: white;
 }
+
+/* Fixed size for product-image */
+.shop-image {
+  width: 350px; /* Set a fixed width */
+  height: 250px; /* Set a fixed height */
+  overflow: hidden; /* Hide any overflowing content */
+  display: flex; /* Center the image */
+  justify-content: center;
+  align-items: center;
+  /* padding: 20px; Remove padding to ensure fixed size */
+}
+
+/* Ensure images fit within the fixed size */
+.shop-image img {
+  max-width: 100%; /* Scale image to fit width */
+  max-height: 100%; /* Scale image to fit height */
+  object-fit: cover; /* Crop the image to fill the container */
+  border-radius: 5px; /* Keep the border radius */
+  transition: 0.3s; /* Smooth transition for hover effects */
+  margin: 0; /* Remove margin to avoid spacing issues */
+}
+
+/* Hover effect for images */
+.shop-image img:hover {
+  box-shadow: none; /* Remove shadow on hover */
+}
+
+/* Specific styles for table images */
+td.shop-image img {
+  max-width: 50px; /* Smaller size for table images */
+  box-shadow: none; /* No shadow */
+  margin-bottom: 0; /* Remove bottom margin */
+}

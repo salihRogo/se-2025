@@ -33,9 +33,9 @@ function display_all_shops() {
             shopDiv.className = "col-lg-4 col-md-6 text-center";
             shopDiv.innerHTML = `
                 <div class="single-product-item">
-                    <div class="product-image">
+                    <div class="shop-image" style="margin-bottom: 30px">
                         <a href="#single-product"
-                            ><img src="assets/img/products/product-img-3.jpg" alt=""
+                            ><img src="${shop.image_url}" alt=""
                         /></a>
                     </div>
                     <h3>${shop.city}</h3>
