@@ -15,7 +15,7 @@ function display_shops_on_home() {
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="#single-product" class="cart-btn">See more</a>
+                    <a href="#single-shop-view" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
                 </div>
             `;
       homeShopsContainer.appendChild(shopDiv);
@@ -40,13 +40,44 @@ function display_all_shops() {
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="#single-product" class="cart-btn">See more</a>
+                    <a href="#single-shop-view" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
                 </div>
             `;
       shopsContainer.appendChild(shopDiv);
     });
   });
 }
+
+function display_single_shop(shop_id) {
+  RestClient.get("shops/" + shop_id, function (data) {
+    shop = data[0];
+    const singleShop = document.getElementById("single-shop-div");
+    singleShop.innerHTML = `
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="single-product-img">
+                <img src="${shop.image_url}" alt="" />
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="shop-details">
+                <h2>${shop.name}</h2>
+                <p><strong>Address:</strong> ${shop.address}</p>
+                <p><strong>City:</strong> ${shop.city}</p>
+                <p><strong>Contact Number:</strong> ${shop.contact_number}</p>
+                <p><strong>Opening Hours:</strong> ${shop.opens_at} - ${shop.closes_at}</p>
+                <p>
+                  <strong>Description:</strong> 
+                  ${shop.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    `;
+  });
+};
 
 function filterShops(city) {
   const buttons = document.querySelectorAll(".filter-btn");

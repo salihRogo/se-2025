@@ -11,7 +11,7 @@ class ShopsDao extends BaseDao
 
     public function get_all_shops()
     {
-        $query = "SELECT s.name, s.address, s.city, si.image_url
+        $query = "SELECT s.id, s.name, s.address, s.city, si.image_url
                     FROM shops s
                     LEFT JOIN (
                         SELECT shop_id, MIN(image_url) AS image_url
@@ -25,7 +25,7 @@ class ShopsDao extends BaseDao
 
     public function get_shops_for_home()
     {
-        $query = "SELECT s.name, s.address, s.city, si.image_url
+        $query = "SELECT s.id, s.name, s.address, s.city, si.image_url
                     FROM shops s
                     JOIN (
                         SELECT city, MIN(id) AS min_id
@@ -43,9 +43,15 @@ class ShopsDao extends BaseDao
         return $this->query($query, $params);
     }
 
-    public function get_shop_by_id($id)
+    public function get_shop_by_id($shop_id)
     {
-        return $this->get_by_id($id);
+        $query = "SELECT s.*, si.image_url
+                    FROM shops s
+                    LEFT JOIN shop_images si ON s.id = si.shop_id
+                    WHERE s.id = :shop_id
+                ";
+        $params = ["shop_id" => $shop_id];
+        return $this->query($query, $params);
     }
 
     public function add_shop($shops)
