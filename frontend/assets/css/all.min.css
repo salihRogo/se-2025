@@ -581,9 +581,7 @@
 .fa-brain:before {
   content: "\f5dc";
 }
-.fa-briefcase:before {
-  content: "\f0b1";
-}
+
 .fa-briefcase-medical:before {
   content: "\f469";
 }
@@ -2516,9 +2514,7 @@
 .fa-money-bill:before {
   content: "\f0d6";
 }
-.fa-money-bill-alt:before {
-  content: "\f3d1";
-}
+
 .fa-money-bill-wave:before {
   content: "\f53a";
 }
@@ -3161,9 +3157,7 @@
 .fa-ship:before {
   content: "\f21a";
 }
-.fa-shipping-fast:before {
-  content: "\f48b";
-}
+
 .fa-shirtsinbulk:before {
   content: "\f214";
 }
@@ -3523,9 +3517,6 @@
 }
 .fa-sync:before {
   content: "\f021";
-}
-.fa-sync-alt:before {
-  content: "\f2f1";
 }
 .fa-syringe:before {
   content: "\f48e";
