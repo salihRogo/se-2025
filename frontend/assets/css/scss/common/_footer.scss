@@ -15,7 +15,7 @@
 
 .footer-area {
   background-color: $text-color;
-  color: #fff;
+  color: #fff4e6;
   padding: 150px 0;
 }
 
@@ -61,14 +61,14 @@ h2.widget-title {
   }
 
   &.subscribe form {
-    input[type=email] {
+    input[type="email"] {
       border: none;
       background-color: #012738;
       width: 78%;
       padding: 15px;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      color: #fff;
+      color: #fff4e6;
     }
 
     button {
@@ -92,9 +92,9 @@ h2.widget-title {
   background-color: $text-color;
   border-top: 1px solid #232a35;
 
-  p{
+  p {
     margin: 0;
-    color: #fff;
+    color: #fff4e6;
     opacity: 0.7;
     padding: 16px 0;
     font-size: 15px;
@@ -118,7 +118,7 @@ h2.widget-title {
 
     a {
       font-size: 16px;
-      color: #fff;
+      color: #fff4e6;
       opacity: 0.7;
       padding: 16px 10px;
       display: block;
@@ -128,7 +128,7 @@ h2.widget-title {
 
 .footer-box {
   ul li a {
-    color: #fff;
+    color: #fff4e6;
   }
 
   &.pages ul li {
