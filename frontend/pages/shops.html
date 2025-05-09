@@ -13,16 +13,37 @@
 </div>
 <!-- end breadcrumb section -->
 
+<!-- filter buttons -->
+<div class="filter-buttons text-center mt-150">
+  <div class="btn-group" role="group" aria-label="Filter Shops"></div>
+    <a href="javascript:void(0);" class="shop-btn filter-btn" onclick="filterShops('Sarajevo')" style="margin-right: 20px;">Sarajevo</a>
+    <a href="javascript:void(0);" class="shop-btn filter-btn" onclick="filterShops('Mostar')" style="margin-right: 20px;">Mostar</a>
+    <a href="javascript:void(0);" class="shop-btn filter-btn" onclick="filterShops('Banja Luka')" style="margin-right: 20px;">Banja Luka</a>
+    <a href="javascript:void(0);" class="shop-btn filter-btn" onclick="filterShops('')">Show All</a>
+  </div>
+</div>
 <!-- products -->
 <div class="product-section mt-150 mb-150">
   <div class="container"> 
-    <!-- filters -->
-
     <div id="shops-container" class="row product-lists"></div>
   </div>
 </div>
 <!-- end products -->
 
 <script>
-    display_all_shops();
+display_all_shops();
+
+// Run after page loads
+document.addEventListener('DOMContentLoaded', function () {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Add active to clicked one
+      this.classList.add('active');
+    });
+  });
+});
 </script>

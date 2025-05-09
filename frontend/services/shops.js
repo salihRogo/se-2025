@@ -47,3 +47,25 @@ function display_all_shops() {
         });
     });
 }
+
+function filterShops(city) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    if (city) {
+        const activeButton = Array.from(buttons).find(btn => btn.textContent === city);
+        if (activeButton) activeButton.classList.add('active');
+    }
+
+    const shopsContainer = document.getElementById('shops-container');
+    const allShops = shopsContainer.querySelectorAll('.single-product-item');
+
+    allShops.forEach(shop => {
+        const shopCity = shop.getAttribute('data-city') || shop.querySelector('h3').textContent.trim();
+        if (!city || shopCity === city) {
+            shop.style.display = 'block';
+        } else {
+            shop.style.display = 'none';
+        }
+    });
+}
