@@ -8,7 +8,7 @@ function display_shops_on_home() {
       shopDiv.className = "col-lg-4 col-md-6 text-center";
       shopDiv.innerHTML = `
                 <div class="single-product-item">
-                    <div class="shop-image" style="margin-bottom: 30px>
+                    <div class="shop-image" style="margin-bottom: 30px;">
                         <a href="#single-product"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
@@ -33,7 +33,7 @@ function display_all_shops() {
       shopDiv.className = "col-lg-4 col-md-6 text-center";
       shopDiv.innerHTML = `
                 <div class="single-product-item">
-                    <div class="shop-image" style="margin-bottom: 30px">
+                    <div class="shop-image" style="margin-bottom: 30px;">
                         <a href="#single-product"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
