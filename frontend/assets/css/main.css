@@ -422,7 +422,7 @@ p:last-child {
 }
 
 .gray-bg {
-  background-color: #f5f5f5;
+  background-color: #fff4e6;
 }
 
 .orange-text {
@@ -913,7 +913,7 @@ a.mobile-show {
 }
 
 .logo-carousel-section {
-  background-color: #f5f5f5;
+  background-color: #fff4e6;
   padding: 50px 0;
 }
 
@@ -1818,7 +1818,7 @@ span.comment-date {
 
 ----------------------------------------------------------------------------- */
 .cart-banner {
-  background-color: #f5f5f5;
+  background-color: #fff4e6;
 }
 
 .cart-banner .image-column {
@@ -2039,7 +2039,7 @@ a.video-play-btn {
 ----------------------------------------------------------------------------- */
 .shop-banner {
   position: relative;
-  background-color: #f5f5f5;
+  background-color: #fff4e6;
   background-image: url(../img/1.jpg);
   background-size: cover;
   padding: 110px 0px 115px;
@@ -2680,4 +2680,199 @@ table.order-details tbody td {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
+}
+
+/* Login Section */
+.login-section {
+  background-color: #fff4e6; /* Light gray background */
+  padding: 50px 0;
+  border-radius: 10px;
+}
+
+.login-form {
+  background-color: #ffffff; /* White background for the form */
+  padding: 30px 20px;
+  border-radius: 10px;
+}
+
+.login-form h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #051922; /* Dark text color */
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555555; /* Medium gray text */
+}
+
+.login-form input:focus {
+  border-color: #b288ec; /* Purple border on focus */
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(178, 136, 236, 0.5); /* Purple glow */
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #b288ec; /* Purple background */
+  color: #fff4e6; /* Light cream text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #9a6fd1; /* Slightly darker purple on hover */
+}
+
+/* Center and enlarge the section header */
+.section-header {
+  text-align: center; /* Center the text */
+  margin: 0 auto; /* Center the container */
+  padding: 50px 20px; /* Add padding for spacing */
+}
+
+.section-header h2 {
+  font-size: 48px; /* Increase the font size */
+  font-weight: bold; /* Make the text bold */
+  color: #051922; /* Dark text color */
+  margin-bottom: 20px; /* Add spacing below the heading */
+}
+
+.section-header p {
+  font-size: 20px; /* Increase the font size for the paragraph */
+  color: #555555; /* Medium gray text */
+  margin-bottom: 0; /* Remove extra margin */
+}
+
+/* Signup Section */
+.signup-section {
+  background-color: #fff4e6; /* Light cream background */
+  padding: 50px 0;
+  border-radius: 10px;
+}
+
+.signup-form {
+  background-color: #ffffff; /* White background for the form */
+  padding: 30px 20px;
+  border-radius: 10px;
+}
+
+.signup-form h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #051922; /* Dark text color */
+}
+
+.signup-form .form-group {
+  margin-bottom: 20px;
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555555; /* Medium gray text */
+}
+
+.signup-form input:focus {
+  border-color: #b288ec; /* Purple border on focus */
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(178, 136, 236, 0.5); /* Purple glow */
+}
+
+.signup-form button {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #b288ec; /* Purple background */
+  color: #fff4e6; /* Light cream text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-form button:hover {
+  background-color: #9a6fd1; /* Slightly darker purple on hover */
+}
+
+/* Profile Section */
+.profile-section {
+  background-color: #fff4e6; /* Light cream background */
+  padding: 50px 0;
+  border-radius: 10px;
+}
+
+.profile-details {
+  background-color: #ffffff; /* White background for the profile card */
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center;
+}
+
+.profile-details h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #051922; /* Dark text color */
+}
+
+.profile-details p {
+  font-size: 16px;
+  color: #555555; /* Medium gray text */
+}
+
+.profile-details .text-muted {
+  color: #888888; /* Lighter gray for muted text */
+}
+
+.profile-picture img {
+  border: 3px solid #b288ec; /* Purple border around the profile picture */
+  padding: 5px;
+  border-radius: 50%; /* Circular profile picture */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.profile-info p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555555; /* Medium gray text */
+}
+
+.profile-actions .boxed-btn {
+  padding: 10px 20px;
+  background-color: #b288ec; /* Purple background */
+  color: #fff4e6; /* Light cream text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-actions .boxed-btn:hover {
+  background-color: #9a6fd1; /* Slightly darker purple on hover */
 }
