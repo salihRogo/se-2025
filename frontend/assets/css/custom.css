@@ -1,0 +1,28 @@
+/* Reset and base style */
+a.shop-btn {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    width: 150px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
+    line-height: 50px; /* Center text vertically */
+    text-align: center; /* Center text horizontally */
+    background-color: white;
+    color: #F28123;
+    padding: 0; /* Remove padding since size is fixed */
+    border: 2px solid #F28123;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+/* Hover style */
+a.shop-btn:hover {
+  background-color: #f7c59f; /* Change to any color you want */
+  color: white;
+}
+
+/* Active state */
+a.shop-btn.active {
+  background-color: #f7c59f; /* Same as hover color */
+  color: white;
+}
