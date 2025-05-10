@@ -20,7 +20,15 @@ class ReservationsDao extends BaseDao {
 
     public function add_reservation($reservations)
     {
-        return $this->add($reservations);
+        $query = 'INSERT INTO reservations (user_id, shop_id, number_of_guests, reservation_time) 
+              VALUES (:user_id, :shop_id, :number_of_guests, :reservation_time)';
+        $params = [
+            "user_id" => $reservations['user_id'],
+            "shop_id" => $reservations['shop_id'],
+            "number_of_guests" => $reservations['number_of_guests'],
+            "reservation_time" => $reservations['reservation_time']
+        ];
+        return $this->query($query, $params);
     }
 
     public function get_user_reservations($user_id)

@@ -125,9 +125,9 @@ td.shop-image img {
 
 /* Hover state */
 .reservation-btn:hover {
-  background-color: white;
+  background-color: #f7c59f;
   /* Smooth white background on hover */
-  color: #b288ec;
+  color: white;
   /* Purple text */
   border: 2px solid #b288ec;
   /* Keep purple border */
