@@ -21,13 +21,13 @@ function register_user() {
 function login_user() {
   FormValidation.validate("login-form", {}, function (data) {
     Utils.block_ui("login-button");
-    if (process.env.NODE_ENV === "development") {
-      console.log(data);
-    }
+
     RestClient.post(
       "login",
       data,
       function (response) {
+        window.localStorage.setItem("user_id", response.id);
+
         Utils.unblock_ui("login-button");
         toastr.success("You logged in successfully");
         window.location.hash = "#home";
@@ -71,5 +71,27 @@ function display_all_users() {
       `;
       usersContainer.appendChild(userDiv);
     });
+  });
+}
+
+function load_user_profile() {
+  user_id = window.localStorage.getItem("user_id");
+
+  RestClient.get("user/" + user_id, function (data) {
+    console.log(data);
+
+    document.getElementById("profile-full-name").textContent =
+      data.full_name || "Full Name";
+    document.getElementById("profile-email").textContent =
+      "Email: " + data.email || "Email";
+    document.getElementById("profile-phone-number").textContent =
+      "Phone: " + data.phone_number || "Phone Number";
+
+    const firstName = data.full_name.split(" ")[0];
+
+    const greetingElement = document.querySelector(".section-header h2");
+    if (greetingElement) {
+      greetingElement.textContent = `Hi ${firstName}, welcome to your profile`;
+    }
   });
 }
