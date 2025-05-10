@@ -1,7 +1,7 @@
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section-single-shop breadcrumb-bg-single-shop"></div>
 <!-- end breadcrumb section -->
-
+ 
 <!-- login section -->
 <div class="login-section mt-50 mb-100" style="padding: 0px !important">
   <div class="container">
@@ -13,14 +13,14 @@
       <div class="col-lg-6 offset-lg-3 text-center">
         <div class="login-form">
           <h2>Login to Your Account</h2>
-          <form>
+          <form id="login-form">
             <div class="form-group">
-              <input type="email" placeholder="Email" required />
+              <input type="email" id="email" name="email" placeholder="Email" required />
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" required />
+              <input type="password" id="password" name="password" placeholder="Password" required />
             </div>
-            <button type="submit" class="boxed-btn">Login</button>
+            <button onclick="login_user();" type="submit" id="login-button" class="boxed-btn">Login</button>
           </form>
           <div class="text-center mt-3">
             <p>Don't have an account? <a href="#register">Register here</a></p>

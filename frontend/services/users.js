@@ -18,6 +18,26 @@ function register_user() {
   });
 }
 
+function login_user() {
+  FormValidation.validate("login-form", {}, function (data) {
+    Utils.block_ui("login-button");
+    console.log(data);
+    RestClient.post(
+      "login",
+      data,
+      function (response) {
+        Utils.unblock_ui("login-button");
+        toastr.success("You logged in successfully");
+        window.location.hash = "#home";
+      },
+      function (error) {
+        Utils.unblock_ui("login-button");
+        toastr.error("Error occurred while logging into your account");
+      }
+    );
+  });
+}
+
 function display_user_profile(user_id) {
   RestClient.get("user/" + user_id, function (data) {
     const user = data;
