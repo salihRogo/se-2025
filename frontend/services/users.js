@@ -21,7 +21,9 @@ function register_user() {
 function login_user() {
   FormValidation.validate("login-form", {}, function (data) {
     Utils.block_ui("login-button");
-    console.log(data);
+    if (process.env.NODE_ENV === "development") {
+      console.log(data);
+    }
     RestClient.post(
       "login",
       data,
