@@ -95,3 +95,23 @@ function load_user_profile() {
     }
   });
 }
+
+function logout_user() {
+  window.localStorage.removeItem("user_id");
+  window.localStorage.removeItem("full_name");
+  window.localStorage.removeItem("email");
+  window.localStorage.removeItem("phone_number");
+
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.reset(); 
+  }
+
+  const profileForm = document.getElementById("profile-form");
+  if (profileForm) {
+    profileForm.reset(); 
+  }
+
+  window.location.hash = "#login";
+  toastr.success("You have been logged out successfully");
+}
