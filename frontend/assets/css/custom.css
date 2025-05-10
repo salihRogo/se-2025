@@ -2,13 +2,18 @@
 a.shop-btn {
   font-family: "Poppins", sans-serif;
   display: inline-block;
-  width: 150px; /* Set a fixed width */
-  height: 50px; /* Set a fixed height */
-  line-height: 50px; /* Center text vertically */
-  text-align: center; /* Center text horizontally */
+  width: 150px;
+  /* Set a fixed width */
+  height: 50px;
+  /* Set a fixed height */
+  line-height: 50px;
+  /* Center text vertically */
+  text-align: center;
+  /* Center text horizontally */
   background-color: white;
   color: #b288ec;
-  padding: 0; /* Remove padding since size is fixed */
+  padding: 0;
+  /* Remove padding since size is fixed */
   border: 2px solid #b288ec;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
@@ -17,22 +22,28 @@ a.shop-btn {
 
 /* Hover style */
 a.shop-btn:hover {
-  background-color: #f7c59f; /* Change to any color you want */
+  background-color: #f7c59f;
+  /* Change to any color you want */
   color: white;
 }
 
 /* Active state */
 a.shop-btn.active {
-  background-color: #f7c59f; /* Same as hover color */
+  background-color: #f7c59f;
+  /* Same as hover color */
   color: white;
 }
 
 /* Fixed size for product-image */
 .shop-image {
-  width: 350px; /* Set a fixed width */
-  height: 250px; /* Set a fixed height */
-  overflow: hidden; /* Hide any overflowing content */
-  display: flex; /* Center the image */
+  width: 350px;
+  /* Set a fixed width */
+  height: 250px;
+  /* Set a fixed height */
+  overflow: hidden;
+  /* Hide any overflowing content */
+  display: flex;
+  /* Center the image */
   justify-content: center;
   align-items: center;
   /* padding: 20px; Remove padding to ensure fixed size */
@@ -40,22 +51,223 @@ a.shop-btn.active {
 
 /* Ensure images fit within the fixed size */
 .shop-image img {
-  max-width: 100%; /* Scale image to fit width */
-  max-height: 100%; /* Scale image to fit height */
-  object-fit: cover; /* Crop the image to fill the container */
-  border-radius: 5px; /* Keep the border radius */
-  transition: 0.3s; /* Smooth transition for hover effects */
-  margin: 0; /* Remove margin to avoid spacing issues */
+  max-width: 100%;
+  /* Scale image to fit width */
+  max-height: 100%;
+  /* Scale image to fit height */
+  object-fit: cover;
+  /* Crop the image to fill the container */
+  border-radius: 5px;
+  /* Keep the border radius */
+  transition: 0.3s;
+  /* Smooth transition for hover effects */
+  margin: 0;
+  /* Remove margin to avoid spacing issues */
 }
 
 /* Hover effect for images */
 .shop-image img:hover {
-  box-shadow: none; /* Remove shadow on hover */
+  box-shadow: none;
+  /* Remove shadow on hover */
 }
 
 /* Specific styles for table images */
 td.shop-image img {
-  max-width: 50px; /* Smaller size for table images */
-  box-shadow: none; /* No shadow */
-  margin-bottom: 0; /* Remove bottom margin */
+  max-width: 50px;
+  /* Smaller size for table images */
+  box-shadow: none;
+  /* No shadow */
+  margin-bottom: 0;
+  /* Remove bottom margin */
+}
+
+#reservation-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#reservation-form .form-group {
+  flex: 1;
+}
+
+#reservation-form .form-group:first-child {
+  margin-right: 20px;
+  /* Add spacing between left and right sections */
+}
+
+/* Base style for the reservation button */
+.reservation-btn {
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  width: 150px;
+  /* Set a fixed width */
+  height: 50px;
+  /* Set a fixed height */
+  line-height: 50px;
+  /* Center text vertically */
+  text-align: center;
+  /* Center text horizontally */
+  background-color: #b288ec;
+  /* Initial purple background */
+  color: white;
+  /* White text */
+  border: 2px solid #b288ec;
+  /* Purple border */
+  border-radius: 5px;
+  /* Rounded corners */
+  text-decoration: none;
+  /* Remove underline */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  /* Smooth transitions */
+}
+
+/* Hover state */
+.reservation-btn:hover {
+  background-color: white;
+  /* Smooth white background on hover */
+  color: #b288ec;
+  /* Purple text */
+  border: 2px solid #b288ec;
+  /* Keep purple border */
+}
+
+/* Active state */
+.reservation-btn:active {
+  background-color: #b288ec;
+  /* Same as initial background */
+  color: white;
+  /* White text */
+}
+
+/* Style for the input containers */
+.styled-input-container {
+  width: 456px;
+  /* 3 buttons (150px each) + margins (3px each side * 6) */
+  margin: 0 auto;
+}
+
+/* Style for the inputs to match the button look */
+.styled-input {
+  font-family: "Poppins", sans-serif;
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background-color: white;
+  color: #b288ec;
+  padding: 0 15px;
+  border: 2px solid #b288ec;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.styled-input:hover {
+  background-color: #f7c59f;
+  color: white;
+}
+
+.styled-input:focus {
+  outline: none;
+  background-color: #f7c59f;
+  color: white;
+}
+
+/* Placeholder style */
+.styled-input::placeholder {
+  color: #b288ec;
+  opacity: 0.7;
+}
+
+/* Date/Time input specific styles */
+input[type="date"].styled-input,
+input[type="time"].styled-input {
+  position: relative;
+}
+
+/* Custom arrow for number input */
+input[type="number"].styled-input::-webkit-inner-spin-button,
+input[type="number"].styled-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Base styles for all interactive elements */
+.guest-btn,
+.custom-input,
+.confirm-btn {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background-color: white;
+  color: #b288ec;
+  border: 2px solid #b288ec;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Guest number buttons */
+.guest-btn {
+  display: inline-block;
+  width: 60px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 4px;
+}
+
+.guest-btn:hover,
+.guest-btn.active {
+  background-color: #f7c59f;
+  color: white;
+}
+
+/* Input containers */
+.custom-input-container {
+  width: 200px;
+  margin: 0 auto;
+}
+
+/* Custom inputs */
+.custom-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 15px;
+  border-radius: 4px;
+}
+
+.custom-input:hover {
+  background-color: #f7c59f;
+  color: white;
+}
+
+.custom-input:focus {
+  outline: none;
+  background-color: #f7c59f;
+  color: white;
+}
+
+/* Placeholder styling */
+.custom-input::placeholder {
+  color: #b288ec;
+  opacity: 0.7;
+}
+
+/* Confirm button */
+.confirm-btn {
+  padding: 10px 30px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.confirm-btn:hover {
+  background-color: #f7c59f;
+  color: white;
+}
+
+/* Hide native date/time picker arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
