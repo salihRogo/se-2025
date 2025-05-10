@@ -74,10 +74,10 @@ function display_single_shop(shop_id) {
           </div>
         </div>
         </div>
+        <br>
       </div>
-      <br>
-      <div class="mx-auto" style="width: 65%;">
-        <hr>
+      <div class="mx-auto" style="width: 65%;"><hr></div>
+      <div class="mx-auto" style="width: 65%; margin-top: 50px;">
         <div class="text-center">
           <h4>Reserve a Spot</h4>
         </div>
@@ -86,29 +86,29 @@ function display_single_shop(shop_id) {
           <form id="reservation-form" class="d-flex justify-content-between align-items-start">
             <!-- Left Section: Number of Guests -->
             <div class="form-group text-center" style="flex: 1; padding: 0 15px;">
-              <label for="guest-number"><b>Number of Guests:</b></label>
+              <label for="number_of_guests"><b>Number of Guests:</b></label>
               <div class="my-2">
                 <a href="javascript:void(0);" class="shop-btn filter-btn d-inline-block mx-1" onclick="setGuestNumber(2)">2</a>
                 <a href="javascript:void(0);" class="shop-btn filter-btn d-inline-block mx-1" onclick="setGuestNumber(3)">3</a>
                 <a href="javascript:void(0);" class="shop-btn filter-btn d-inline-block mx-1" onclick="setGuestNumber(4)">4</a>
               </div>
-              <input type="number" id="guest-number" class="form-control mx-auto mt-2" placeholder="Enter custom number" min="1" style="width: 80%; text-align: center;" />
+              <input type="number" id="number_of_guests" class="form-control mx-auto mt-2" placeholder="Enter custom number" min="1" style="width: 93%; text-align: center; height: 50px;" />
             </div>
 
             <!-- Right Section: Date and Time Pickers -->
             <div class="form-group text-center" style="flex: 1; padding: 0 15px;">
               <div class="mb-3">
                 <label for="reservation-date"><b>Date:</b></label>
-                <input type="date" id="reservation-date" class="form-control mx-auto" style="width: 80%;" />
+                <input type="date" id="reservation-date" class="form-control mx-auto" style="width: 93%; height: 50px;" />
               </div>
               <div>
                 <label for="reservation-time"><b>Time:</b></label>
-                <input type="time" id="reservation-time" class="form-control mx-auto" style="width: 80%;" />
+                <input type="time" id="reservation-time" class="form-control mx-auto" style="width: 93%; height: 50px;" />
               </div>
             </div>
           </form>
           <div class="text-center mt-4">
-            <button type="button" class="reservation-btn px-4" onclick="confirmReservation()">Confirm</button>
+            <button type="button" class="reservation-btn px-4" onclick="confirmReservation(${shop.id})">Confirm</button>
           </div>
         </div>
       </div>
@@ -144,20 +144,5 @@ function filterShops(city) {
 }
 
 function setGuestNumber(number) {
-  document.getElementById("guest-number").value = number;
-}
-
-function confirmReservation() {
-  const guestNumber = document.getElementById("guest-number").value;
-  const reservationDate = document.getElementById("reservation-date").value;
-  const reservationTime = document.getElementById("reservation-time").value;
-
-  if (!guestNumber || !reservationDate || !reservationTime) {
-    alert("Please fill out all fields.");
-    return;
-  }
-
-  alert(
-    `Reservation confirmed for ${guestNumber} guests on ${reservationDate} at ${reservationTime}.`
-  );
+  document.getElementById("number_of_guests").value = number;
 }
