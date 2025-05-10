@@ -1073,6 +1073,19 @@ a.boxed-btn:hover {
   color: #b288ec;
 }
 
+.profile-actions .boxed-btn {
+  width: 500px; /* Set the desired width */
+  padding: 10px 20px;
+  background-color: #b288ec;
+  color: #fff4e6;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 a.bordered-btn {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
