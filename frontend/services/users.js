@@ -31,6 +31,10 @@ function login_user() {
         Utils.unblock_ui("login-button");
         toastr.success("You logged in successfully");
         window.location.hash = "#home";
+
+        check_user_presence();
+
+        window.location.hash = "#home";
       },
       function (error) {
         Utils.unblock_ui("login-button");
@@ -74,8 +78,41 @@ function display_all_users() {
   });
 }
 
+window.addEventListener("hashchange", function () {
+  handle_hash_change();
+});
+
+handle_hash_change();
+
+function handle_hash_change() {
+  const currentHash = window.location.hash;
+
+  if (currentHash === "#login") {
+    load_login_page();
+  } else if (currentHash === "#register") {
+    load_register_page();
+  } else if (currentHash === "#profile") {
+    load_user_profile();
+  } else {
+    console.log("Unhandled hash:", currentHash);
+  }
+}
+
+function load_login_page() {
+  console.log("Navigating to the login");
+}
+
+function load_register_page() {
+  console.log("Navigating to the signup");
+}
+
 function load_user_profile() {
-  user_id = window.localStorage.getItem("user_id");
+  const user_id = window.localStorage.getItem("user_id");
+
+  if (!user_id) {
+    window.location.hash = "#login";
+    return;
+  }
 
   RestClient.get("user/" + user_id, function (data) {
     console.log(data);
@@ -102,16 +139,76 @@ function logout_user() {
   window.localStorage.removeItem("email");
   window.localStorage.removeItem("phone_number");
 
+  const profileFullName = document.getElementById("profile-full-name");
+  const profileEmail = document.getElementById("profile-email");
+  const profilePhoneNumber = document.getElementById("profile-phone-number");
+
+  if (profileFullName) profileFullName.textContent = "";
+  if (profileEmail) profileEmail.textContent = "";
+  if (profilePhoneNumber) profilePhoneNumber.textContent = "";
+
   const loginForm = document.getElementById("login-form");
   if (loginForm) {
-    loginForm.reset(); 
+    loginForm.reset();
   }
 
   const profileForm = document.getElementById("profile-form");
   if (profileForm) {
-    profileForm.reset(); 
+    profileForm.reset();
   }
 
-  window.location.hash = "#login";
+  const greetingElement = document.querySelector(".section-header h2");
+  if (greetingElement) {
+    greetingElement.remove();
+  }
+
+  check_user_presence();
+
+  window.location.hash = "#home";
   toastr.success("You have been logged out successfully");
+}
+
+function check_user_presence() {
+  const userId = window.localStorage.getItem("user_id");
+
+  // Get the profile button element
+  const profileButton = document.querySelector("#profile-button");
+
+  if (userId) {
+    // If user is logged in, redirect to the profile page
+    if (profileButton) {
+      profileButton.setAttribute("href", "#profile");
+      profileButton.innerHTML = '<i class="fas fa-user"></i> ';
+    }
+  } else {
+    // If user is not logged in, redirect to the login page
+    if (profileButton) {
+      profileButton.setAttribute("href", "#login");
+      profileButton.innerHTML = '<i class="fas fa-user"></i> ';
+    }
+  }
+}
+
+window.addEventListener("hashchange", function () {
+  if (window.location.hash === "#login") {
+    load_login_page();
+  }
+});
+if (window.location.hash === "#login") {
+  load_login_page();
+}
+function load_login_page() {
+  console.log("Navigating to the login page...");
+}
+
+window.addEventListener("hashchange", function () {
+  if (window.location.hash === "#register") {
+    load_register_page();
+  }
+});
+if (window.location.hash === "#register") {
+  load_register_page();
+}
+function load_register_page() {
+  console.log("Navigating to the signup page...");
 }

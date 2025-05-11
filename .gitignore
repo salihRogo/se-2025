@@ -1,3 +1,4 @@
 backend/vendor/
 backend/config.php
 .vscode/
+frontend/utils/constants.js
