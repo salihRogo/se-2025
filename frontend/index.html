@@ -71,20 +71,20 @@
                     <a href="#shops">Shops</a>
                   </li>
                   <li>
-                    <a href="#profile">Profile</a>
-                  </li>
-                  <li>
-                    <a href="#login">Log in</a>
-                  </li>
-                  <li>
-                    <a href="#signup">Sign up</a>
-                  </li>
-                  <li>
                     <div class="header-icons">
-                      <a class="shopping-cart" href="#cart"
-                        ><i class="fas fa-user"></i
-                      ></a>
+                      <a class="shopping-cart" id="profile-button" href="#">
+                        <i class="fas fa-user"></i>
+                      </a>
                     </div>
+                    <script src="services/users.js"></script>
+                    <script>
+                      document.addEventListener(
+                        "DOMContentLoaded",
+                        function () {
+                          check_user_presence(); // Call the function to update the profile button
+                        }
+                      );
+                    </script>
                   </li>
                 </ul>
               </nav>
