@@ -1,8 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../config.php';
 require_once __DIR__ . '/../services/AuthService.class.php';
 
-Flight::set('auth_service', new AuthService());
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 Flight::route('POST /login', function () {
     $payload = Flight::request()->data->getData();
@@ -13,15 +15,31 @@ Flight::route('POST /login', function () {
     }
 
     // Authenticate user
-    $user = Flight::get('auth_service')->get_user_by_email($payload['email']);
+    $user = Flight::authService()->get_user_by_email($payload['email']);
 
     if (!$user || !password_verify($payload['password'], $user['password'])) {
         Flight::halt(401, "Invalid username or password");
     }
 
-    // Remove sensitive data (e.g., password) before returning the user
+    // Remove sensitive data (e.g., password)
     unset($user['password']);
 
-    // Return the authenticated user data
-    Flight::json($user);
+    // Prepare JWT payload
+    $jwt_payload = [
+        'user' => $user,
+        'iat' => time(),
+        'exp' => time() + (60 * 60) // Valid for 1 hour
+    ];
+
+    // Generate JWT token
+    $token = JWT::encode(
+        $jwt_payload,
+        Config::JWT_SECRET(),
+        'HS256'
+    );
+
+    // Return user data with the token
+    Flight::json(
+        array_merge($user, ['token' => $token])
+    );
 });

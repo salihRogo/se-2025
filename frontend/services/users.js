@@ -1,12 +1,11 @@
 function register_user() {
   FormValidation.validate("register-form", {}, function (data) {
     Utils.block_ui("register-button");
-    //delete data.password_confirm;
     RestClient.post(
       "users",
       data,
       function (response) {
-        Utils.block_ui("register-button");
+        Utils.unblock_ui("register-button");
         toastr.success("user registered succesfully");
         document.getElementById("register-form").reset();
         window.location.hash = "#login";
@@ -26,6 +25,7 @@ function login_user() {
       "login",
       data,
       function (response) {
+        window.localStorage.setItem("token", response.token);
         window.localStorage.setItem("user_id", response.id);
 
         Utils.unblock_ui("login-button");
@@ -37,7 +37,6 @@ function login_user() {
         window.location.hash = "#home";
       },
       function (error) {
-        Utils.unblock_ui("login-button");
         toastr.error("Error occurred while logging into your account");
       }
     );
@@ -82,8 +81,6 @@ window.addEventListener("hashchange", function () {
   handle_hash_change();
 });
 
-handle_hash_change();
-
 function handle_hash_change() {
   const currentHash = window.location.hash;
 
@@ -96,14 +93,6 @@ function handle_hash_change() {
   } else {
     console.log("Unhandled hash:", currentHash);
   }
-}
-
-function load_login_page() {
-  console.log("Navigating to the login");
-}
-
-function load_register_page() {
-  console.log("Navigating to the signup");
 }
 
 function load_user_profile() {

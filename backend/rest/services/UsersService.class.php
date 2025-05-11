@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../dao/UsersDao.class.php';
 require_once 'BaseService.class.php';
 
-class UserService {
+class UsersService {
     private $users_dao;
 
     public function __construct() {

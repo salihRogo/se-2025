@@ -29,7 +29,20 @@ class UsersDao extends BaseDao
 
     public function update_user($id, $user)
     {
-        $this->update("users", $id, $user);
+        $this->update_user_call("users", $id, $user);
+    }
+
+    public function update_user_call($table, $id, $entity, $id_column = "id")
+    {
+        $query = "UPDATE {$table} SET ";
+        foreach ($entity as $name => $value) {
+        $query .= $name . "= :" . $name . ", ";
+        }
+        $query = substr($query, 0, -2);
+        $query .= " WHERE {$id_column} = :id";
+        $stmt = $this->connection->prepare($query);
+        $entity['id'] = $id;
+        $stmt->execute($entity);
     }
 
     public function get_all_users()
