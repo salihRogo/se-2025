@@ -1,14 +1,13 @@
 <?php
-require_once __DIR__ . '/../services/UsersService.class.php';
 
-Flight::set('users_service', new UserService());
+require_once __DIR__ . '/../services/UsersService.class.php';
 
 // Add a new user
 Flight::route('POST /users', function () {
     $data = Flight::request()->data->getData();
 
     // Validate required fields
-    if (!isset($data['full_name']) || !isset($data['email']) || !isset($data['password'])) {
+    if (!isset($data['full_name']) || !isset($data['email']) || !isset($data['password']) || !isset($data['password_confirm'])) {
         Flight::halt(400, 'Full name, email, password, and confirm password are required');
     }
 
@@ -22,12 +21,13 @@ Flight::route('POST /users', function () {
     unset($data['password_confirm']);
 
     // Add the user
-    $user = Flight::get('users_service')->add_user($data);
+    $user = Flight::usersService()->add_user($data);
     Flight::json($user);
 });
+
 // Get a user by ID
 Flight::route('GET /user/@id', function ($id) {
-    $user = Flight::get('users_service')->get_user_by_id($id);
+    $user = Flight::usersService()->get_user_by_id($id);
     if (!$user) {
         Flight::halt(404, 'User not found');
     }
@@ -36,7 +36,7 @@ Flight::route('GET /user/@id', function ($id) {
 
 // Get all users
 Flight::route('GET /users', function () {
-    $users = Flight::get('users_service')->get_users();
+    $users = Flight::usersService()->get_users();
     Flight::json($users);
 });
 
@@ -45,6 +45,6 @@ Flight::route('PUT /user/@id', function ($id) {
     $data = Flight::request()->data->getData();
 
     // Update the user
-    $user = Flight::get('users_service')->update_user($id, $data);
+    $user = Flight::usersService()->update_user($id, $data);
     Flight::json($user);
 });

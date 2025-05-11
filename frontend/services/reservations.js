@@ -8,21 +8,24 @@ function confirmReservation(shop_id) {
     return;
   }
 
-  //   user_id = window.localStorage.getItem("user_id");
-  //   console.log(user_id);
+  user_id = window.localStorage.getItem("user_id");
 
   data = {};
   data.shop_id = shop_id;
-  data.user_id = 1;
+  data.user_id = user_id;
   data.number_of_guests = guestNumber;
   data.reservation_time = `${reservationDate} ${reservationTime}:00`;
 
   console.log(data);
 
   RestClient.post("reservation", data, function (response) {
-    alert(
+    window.setTimeout(1000);
+    toastr.success(
       `Reservation confirmed for ${guestNumber} guests on ${reservationDate} at ${reservationTime}.`
     );
-    window.location.hash = "#profile";
+  }, function() {
+    toastr.alert(
+      `You have to be logged in in order to reserve a spot.`
+    );
   });
 }
