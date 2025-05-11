@@ -3,8 +3,8 @@
 require_once __DIR__ . '/../services/ReviewsService.class.php';
 
 Flight::route('POST /reviews', function () {
-    $reviews = Flight::request()->data->getData();
-    Flight::json(Flight::reviewsService()->add_review($reviews));
+    $review = Flight::request()->data->getData();
+    Flight::json(Flight::reviewsService()->add_review($review));
 });
 
 Flight::route('GET /reviews', function () {
@@ -19,6 +19,6 @@ Flight::route('GET /shop/reviews/@shop_id', function ($shop_id) {
     Flight::json(Flight::reviewsService()->get_shop_reviews($shop_id));
 });
 
-Flight::route('DELETE /review/@id', function($id){
+Flight::route('DELETE /review/@id', function ($id) {
     Flight::json(Flight::reviewsService()->delete_review($id));
 });

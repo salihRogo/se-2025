@@ -12,13 +12,26 @@ class ReviewsDao extends BaseDao
 
     public function add_review($reviews)
     {
-        return $this->add($reviews);
+        $query = "INSERT INTO reviews (shop_id, user_id, comment) 
+              VALUES (:shop_id, :user_id, :comment)";
+
+        $params = [
+            "shop_id" => $reviews["shop_id"],
+            "user_id" => $reviews["user_id"],
+            "comment" => $reviews["comment"]
+        ];
+
+        $this->query($query, $params);
+
+        $reviews["id"] = $this->connection->lastInsertId();
+        return $reviews;
     }
 
     public function get_all_reviews()
     {
         return $this->get_all();
     }
+
 
     public function get_user_reviews($user_id)
     {
@@ -30,7 +43,11 @@ class ReviewsDao extends BaseDao
     public function get_shop_reviews($shop_id)
     {
         $params = ["shop_id" => $shop_id];
-        $query = "SELECT * FROM reviews where shop_id= :shop_id";
+        $query = "SELECT r.comment, u.full_name 
+              FROM reviews r
+              JOIN users u ON r.user_id = u.id
+              WHERE r.shop_id = :shop_id";
+
         return $this->query($query, $params);
     }
 
