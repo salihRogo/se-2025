@@ -1,4 +1,8 @@
 backend/vendor/
 backend/config.php
+backend/composer.lock
 .vscode/
 frontend/utils/constants.js
+.DS_Store
+backend/.DS_Store
+frontend/.DS_Store

@@ -24,7 +24,7 @@ function confirmReservation(shop_id) {
       `Reservation confirmed for ${guestNumber} guests on ${reservationDate} at ${reservationTime}.`
     );
   }, function() {
-    toastr.alert(
+    toastr.warning(
       `You have to be logged in in order to reserve a spot.`
     );
   });

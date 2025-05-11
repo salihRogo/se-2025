@@ -124,9 +124,7 @@ function load_user_profile() {
 
 function logout_user() {
   window.localStorage.removeItem("user_id");
-  window.localStorage.removeItem("full_name");
-  window.localStorage.removeItem("email");
-  window.localStorage.removeItem("phone_number");
+  window.localStorage.removeItem("token");
 
   const profileFullName = document.getElementById("profile-full-name");
   const profileEmail = document.getElementById("profile-email");
