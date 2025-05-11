@@ -112,8 +112,26 @@ function display_single_shop(shop_id) {
           </div>
         </div>
       </div>
-      <br>
+      <div class="mx-auto" style="width: 65%; margin-top: 50px;">
+        <div class="text-center">
+          <h4>Leave a Review</h4>
+        </div>
+        <form id="review-form" class="mt-4" style="flex: 1; padding: 0 20px;">
+          <div class="form-group">
+            <label for="review-text"><strong>Your Review:</strong></label>
+            <textarea id="review-text" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
+          </div>
+          <div class="text-center mt-3">
+            <button type="button" class="reservation-btn px-4" onclick="leaveReview(${shop.id})">Submit Review</button>
+          </div>
+        </form>
+      </div>
+      <div id="reviews-container" class="mt-4" style="flex: 1; padding: 0 315px;">
+            <label for="review-text"><strong>Other Reviews:</strong></label>
+        <ul id="reviews-list" class="list-group"></ul>
+      </div>
     `;
+    loadShopReviews(shop_id);
   });
 }
 
