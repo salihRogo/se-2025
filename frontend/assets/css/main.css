@@ -2889,3 +2889,30 @@ table.order-details tbody td {
 .profile-actions .boxed-btn:hover {
   background-color: #9a6fd1; /* Slightly darker purple on hover */
 }
+a.cart-btn,
+button.cart-btn {
+  font-family: "Poppins", sans-serif;
+  display: inline-block;
+  background-color: #b288ec; /* Purple background */
+  color: #fff4e6; /* Light cream text */
+  padding: 10px 20px;
+  border-radius: 50px; /* Rounded corners */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none; /* Ensure no border for buttons */
+}
+
+a.cart-btn:hover,
+button.cart-btn:hover {
+  background-color: #9a6fd1; /* Slightly darker purple on hover */
+}
+
+a.cart-btn:active,
+button.cart-btn:active {
+  background-color: #7e5bb7; /* Even darker purple on click */
+}
+
+

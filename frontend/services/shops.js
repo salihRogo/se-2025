@@ -9,7 +9,7 @@ function display_shops_on_home() {
       shopDiv.innerHTML = `
                 <div class="single-product-item">
                     <div class="shop-image" style="margin-bottom: 30px;">
-                        <a href="#single-product"
+                        <a href="#single-shop-view" onclick="display_single_shop(${shop.id})"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
                     </div>
@@ -34,7 +34,7 @@ function display_all_shops() {
       shopDiv.innerHTML = `
                 <div class="single-product-item">
                     <div class="shop-image" style="margin-bottom: 30px;">
-                        <a href="#single-product"
+                        <a href="#single-shop-view" onclick="display_single_shop(${shop.id})"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
                     </div>
@@ -62,7 +62,10 @@ function display_single_shop(shop_id) {
         </div>
         <div class="col-md-7">
           <div class="shop-details">
-          <h2>${shop.name}</h2>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+          <h2 style="margin: 0;">${shop.name}</h2>
+          <a href="javascript:void(0);" class="cart-btn" onclick="addFavourite(${shop.id});">Add To Favourites</a>
+          </div>
           <p><strong>Address:</strong> ${shop.address}</p>
           <p><strong>City:</strong> ${shop.city}</p>
           <p><strong>Contact Number:</strong> ${shop.contact_number}</p>
@@ -108,7 +111,7 @@ function display_single_shop(shop_id) {
             </div>
           </form>
           <div class="text-center mt-4">
-            <button type="button" class="reservation-btn px-4" onclick="confirmReservation(${shop.id})">Confirm</button>
+            <button type="button" class="cart-btn" onclick="confirmReservation(${shop.id})">Confirm</button>
           </div>
         </div>
       </div>
@@ -122,7 +125,7 @@ function display_single_shop(shop_id) {
             <textarea id="review-text" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
           </div>
           <div class="text-center mt-3">
-            <button type="button" class="reservation-btn px-4" onclick="leaveReview(${shop.id})">Submit Review</button>
+            <button type="button" class="cart-btn" onclick="leaveReview(${shop.id})">Submit Review</button>
           </div>
         </form>
       </div>
