@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . '/../services/AuthService.class.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -30,7 +31,29 @@ Flight::route('/*', function(){
     if($req_method == 'GET' && preg_match('#^/shops/\d+$#', $req_url)){
         return TRUE;
     }
+<<<<<<< Updated upstream
     try{
+=======
+    if ($req_method == 'DELETE' && preg_match('#^/favourite/\d+$#', $req_url)) {
+        return TRUE;
+    }
+    if ($req_method == 'GET' && preg_match('#^/favourites/\d+$#', $req_url)) {
+        return TRUE;
+    }
+    if ($req_method == 'GET' && preg_match('#^/shops/\d+$#', $req_url)) {
+        return TRUE;
+    }
+    if ($req_method == 'GET' && preg_match('#^/shop/reviews/\d+$#', $req_url)) {
+        return TRUE;
+    }
+    if (preg_match('#^/admin/#', $req_url)) {
+        $user = Flight::authService()->get_current_user();
+        if (!$user || $user['role'] !== 'admin') {
+            Flight::halt(403, "Access denied");
+        }
+    }
+    try {
+>>>>>>> Stashed changes
         $token = Flight::request()->getHeader('Authentication');
         if(!$token){
             Flight::halt(401, 'Token not provided');

@@ -15,6 +15,7 @@ Flight::register('usersService', 'UsersService');
 Flight::register('authService', 'AuthService');
 
 require_once __DIR__ . '/rest/routes/middleware_routes.php';
+require_once __DIR__ . '/rest/routes/admin_routes.php';
 require_once __DIR__ . '/rest/routes/shops_routes.php';
 require_once __DIR__ . '/rest/routes/reviews_routes.php';
 require_once __DIR__ . '/rest/routes/reservations_routes.php';
