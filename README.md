@@ -116,10 +116,14 @@ class Config
 ```js
 var Constants = {
   get_api_base_url: function () {
-    return "http://localhost/se-2025/backend/";     // Change this URL if needed
+    return "http://localhost/se-2025/backend/";     // Change this URL if needed (Apache port changed)
   },
 };
 ```
+
+### Run it in the browser
+
+- In order to actually access this application, visit this url: `http://localhost/se-2025/frontend`. Make sure that Apache and MySQL servers are up and running.
 
 ## Project structure 
 
