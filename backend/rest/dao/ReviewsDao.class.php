@@ -21,10 +21,7 @@ class ReviewsDao extends BaseDao
             "comment" => $reviews["comment"]
         ];
 
-        $this->query($query, $params);
-
-        $reviews["id"] = $this->connection->lastInsertId();
-        return $reviews;
+        return $this->query($query, $params);
     }
 
     public function get_all_reviews()
