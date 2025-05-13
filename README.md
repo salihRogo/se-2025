@@ -121,7 +121,7 @@ var Constants = {
 };
 ```
 
-### Run it in the browser
+#### Run it in the browser
 
 - In order to actually access this application, visit this url: `http://localhost/se-2025/frontend`. Make sure that Apache and MySQL servers are up and running.
 
