@@ -49,4 +49,9 @@ class UsersDao extends BaseDao
     {
         return $this->query("SELECT * FROM users", []);
     }
+
+    public function delete_user($id) 
+    {
+        return $this->delete($id);
+    }
 }

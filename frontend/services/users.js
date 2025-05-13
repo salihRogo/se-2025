@@ -27,6 +27,7 @@ function login_user() {
       function (response) {
         window.localStorage.setItem("token", response.token);
         window.localStorage.setItem("user_id", response.id);
+        window.localStorage.setItem("role", response.role);
 
         Utils.unblock_ui("login-button");
         toastr.success("You logged in successfully");
@@ -34,7 +35,13 @@ function login_user() {
 
         check_user_presence();
 
-        window.location.hash = "#home";
+        if (response.role === "admin") {
+          window.location.hash = "#admin-dashboard";
+          window.location.reload();
+        } else {
+          window.location.hash = "#home";
+          window.location.reload();
+        }
       },
       function (error) {
         toastr.error("Error occurred while logging into your account");
@@ -126,6 +133,7 @@ function load_user_profile() {
 function logout_user() {
   window.localStorage.removeItem("user_id");
   window.localStorage.removeItem("token");
+  window.localStorage.removeItem("role");
 
   const profileFullName = document.getElementById("profile-full-name");
   const profileEmail = document.getElementById("profile-email");
@@ -153,6 +161,7 @@ function logout_user() {
   check_user_presence();
 
   window.location.hash = "#home";
+  window.location.reload();
   toastr.success("You have been logged out successfully");
 }
 

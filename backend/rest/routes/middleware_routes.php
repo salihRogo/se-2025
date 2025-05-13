@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . '/../services/AuthService.class.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-
 
 Flight::route('/*', function () {
     $req_method = Flight::request()->method;
@@ -41,6 +41,12 @@ Flight::route('/*', function () {
     }
     if ($req_method == 'GET' && preg_match('#^/shop/reviews/\d+$#', $req_url)) {
         return TRUE;
+    }
+    if (preg_match('#^/admin/#', $req_url)) {
+        $user = Flight::authService()->get_current_user();
+        if (!$user || $user['role'] !== 'admin') {
+            Flight::halt(403, "Access denied");
+        }
     }
     try {
         $token = Flight::request()->getHeader('Authentication');

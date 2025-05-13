@@ -25,4 +25,8 @@ class UsersService {
     public function update_user($id, $user) {
         return $this->users_dao->update_user($id, $user);
     }
+
+    public function delete_user($id) {
+        return $this->users_dao->delete_user($id);
+    }
 }

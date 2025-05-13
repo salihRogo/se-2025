@@ -23,6 +23,10 @@
       href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <!-- fontawesome -->
     <link rel="stylesheet" href="assets/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/font-awesome.css" />
@@ -63,12 +67,23 @@
               <!-- menu start -->
               <nav class="main-menu">
                 <ul>
-                  <li class="current-list-item">
+                  <li id="user-menu" class="current-list-item">
                     <a href="#home">Home</a>
                   </li>
-                  <li><a href="#about">About</a></li>
-                  <li>
+                  <li id="user-menu">
+                    <a href="#about">About</a>
+                  </li>
+                  <li id="user-menu">
                     <a href="#shops">Shops</a>
+                  </li>
+                  <li id="admin-menu">
+                    <a href="#admin-dashboard">Dashboard</a>
+                  </li>
+                  <li id="admin-menu">
+                    <a href="#admin-manage-users">Manage Users</a>
+                  </li>
+                  <li id="admin-menu">
+                    <a href="#admin-manage-shops">Manage Shops</a>
                   </li>
                   <li>
                     <div class="header-icons">
@@ -76,15 +91,6 @@
                         <i class="fas fa-user"></i>
                       </a>
                     </div>
-                    <script src="services/users.js"></script>
-                    <script>
-                      document.addEventListener(
-                        "DOMContentLoaded",
-                        function () {
-                          check_user_presence(); // Call the function to update the profile button
-                        }
-                      );
-                    </script>
                   </li>
                 </ul>
               </nav>
@@ -117,6 +123,21 @@
       <section id="login" data-load="login.html" role="main"></section>
       <section id="signup" data-load="signup.html" role="main"></section>
       <section id="profile" data-load="profile.html" role="main"></section>
+      <section
+        id="admin-dashboard"
+        data-load="admin/dashboard.html"
+        role="main"
+      ></section>
+      <section
+        id="admin-manage-users"
+        data-load="admin/manage-users.html"
+        role="main"
+      ></section>
+      <section
+        id="admin-manage-shops"
+        data-load="admin/manage-shops.html"
+        role="main"
+      ></section>
     </main>
     <!-- end spapp -->
     <!-- footer -->
@@ -228,5 +249,13 @@
     <script src="services/reservations.js"></script>
     <script src="services/reviews.js"></script>
     <script src="services/favourites.js"></script>
+    <script src="services/helper.js"></script>
+    <script src="services/admin.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        check_user_presence(); // Call the function to update the profile button
+        check_user_role();
+      });
+    </script>
   </body>
 </html>

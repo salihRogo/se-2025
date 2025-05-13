@@ -1,0 +1,146 @@
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-center">
+        <div class="breadcrumb-text">
+          <h1>Dashboard</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end breadcrumb section -->
+<div class="container mt-150 mb-150">
+  <div class="row g-4">
+    <!-- Manage Users Card -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card text-center shadow-sm border-0 h-100 transition-all hover-transform"
+      >
+        <div class="card-body d-flex flex-column">
+          <div
+            class="icon-wrapper bg-primary-light mb-3 mx-auto rounded-circle p-3"
+          >
+            <i class="fas fa-users text-primary fa-2x"></i>
+          </div>
+          <h5 class="card-title text-primary fw-bold">Manage Users</h5>
+          <p class="card-text text-muted mb-4">
+            View and manage all registered users in the system
+          </p>
+          <div class="mt-auto">
+            <a
+              href="#admin-manage-users"
+              class="btn btn-outline-primary rounded-pill px-4"
+            >
+              <i class="fas fa-arrow-right me-2"></i> Go to Users
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Shops Card -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card text-center shadow-sm border-0 h-100 transition-all hover-transform"
+      >
+        <div class="card-body d-flex flex-column">
+          <div
+            class="icon-wrapper bg-success-light mb-3 mx-auto rounded-circle p-3"
+          >
+            <i class="fas fa-store text-success fa-2x"></i>
+          </div>
+          <h5 class="card-title text-success fw-bold">Manage Shops</h5>
+          <p class="card-text text-muted mb-4">
+            Oversee and modify shop listings and details
+          </p>
+          <div class="mt-auto">
+            <a
+              href="#admin-manage-shops"
+              class="btn btn-outline-success rounded-pill px-4"
+            >
+              <i class="fas fa-arrow-right me-2"></i> Go to Shops
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manage Reservations Card -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card text-center shadow-sm border-0 h-100 transition-all hover-transform"
+      >
+        <div class="card-body d-flex flex-column">
+          <div
+            class="icon-wrapper bg-danger-light mb-3 mx-auto rounded-circle p-3"
+          >
+            <i class="fas fa-calendar-check text-danger fa-2x"></i>
+          </div>
+          <h5 class="card-title text-danger fw-bold">Manage Reservations</h5>
+          <p class="card-text text-muted mb-4">
+            Handle all booking requests and appointments
+          </p>
+          <div class="mt-auto">
+            <a
+              href="#admin-manage-reservations"
+              class="btn btn-outline-danger rounded-pill px-4"
+            >
+              <i class="fas fa-arrow-right me-2"></i> Go to Reservations
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hover-transform {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-transform:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bg-primary-light {
+    background-color: rgba(13, 110, 253, 0.1);
+  }
+
+  .bg-success-light {
+    background-color: rgba(25, 135, 84, 0.1);
+  }
+
+  .bg-danger-light {
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .card {
+    animation: pulse 1.5s ease-in-out 1;
+  }
+</style>
