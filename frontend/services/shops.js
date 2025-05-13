@@ -9,13 +9,13 @@ function display_shops_on_home() {
       shopDiv.innerHTML = `
                 <div class="single-product-item">
                     <div class="shop-image" style="margin-bottom: 30px;">
-                        <a href="#single-shop-view" onclick="display_single_shop(${shop.id})"
+                        <a href="javascript:void(0);" onclick="display_single_shop(${shop.id})"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="#single-shop-view" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
+                    <a href="javascript:void(0);" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
                 </div>
             `;
       homeShopsContainer.appendChild(shopDiv);
@@ -34,13 +34,13 @@ function display_all_shops() {
       shopDiv.innerHTML = `
                 <div class="single-product-item">
                     <div class="shop-image" style="margin-bottom: 30px;">
-                        <a href="#single-shop-view" onclick="display_single_shop(${shop.id})"
+                        <a href="javascript:void(0);" onclick="display_single_shop(${shop.id})"
                             ><img src="${shop.image_url}" alt=""
                         /></a>
                     </div>
                     <h3>${shop.city}</h3>
                     <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="#single-shop-view" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
+                    <a href="javascript:void(0);" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
                 </div>
             `;
       shopsContainer.appendChild(shopDiv);
@@ -49,6 +49,7 @@ function display_all_shops() {
 }
 
 function display_single_shop(shop_id) {
+  window.location.hash = "#single-shop-view";
   RestClient.get("shops/" + shop_id, function (data) {
     shop = data[0];
     const singleShop = document.getElementById("single-shop-div");
