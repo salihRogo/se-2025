@@ -24,6 +24,7 @@ function leaveReview(shop_id) {
     function (response) {
       toastr.success("Thank you for your review!");
       document.getElementById("review-form").reset();
+      display_single_shop(reviewData.shop_id);
     },
     function (error) {
       toastr.error(
