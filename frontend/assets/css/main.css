@@ -2915,4 +2915,47 @@ button.cart-btn:active {
   background-color: #7e5bb7; /* Even darker purple on click */
 }
 
+/* Reservation Card Styles */
+.reservation-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(178, 136, 236, 0.07);
+}
 
+.reservation-title {
+  font-weight: bold;
+  color: #b288ec;
+}
+
+.reservation-details-row {
+  gap: 40px;
+}
+
+.reservation-label {
+  color: #888;
+  font-size: 13px;
+}
+
+.reservation-details-row {
+  gap: 0 !important; /* Remove gap if using justify-content-between */
+}
+.reservation-details-row > div {
+  flex: 1 1 0;
+  min-width: 120px;
+}
+
+.reservation-card .reservation-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.reservation-card .reservation-details-row span:not(.reservation-label) {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.reservation-card .reservation-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

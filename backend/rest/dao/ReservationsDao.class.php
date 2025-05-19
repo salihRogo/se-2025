@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/BaseDao.class.php';
 
-class ReservationsDao extends BaseDao 
+class ReservationsDao extends BaseDao
 {
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct("reservations");
     }
@@ -34,7 +34,17 @@ class ReservationsDao extends BaseDao
 
     public function get_user_reservations($user_id)
     {
-        $query = 'SELECT * FROM reservations WHERE user_id = :user_id';
+        $query = 'SELECT 
+            s.name AS shop_name,
+            r.reservation_time,
+            r.number_of_guests,
+            r.status, r.id
+        FROM 
+            reservations r
+        JOIN 
+            shops s ON r.shop_id = s.id
+        WHERE 
+            r.user_id = :user_id';
         $params = ["user_id" => $user_id];
         return $this->query($query, $params);
     }
@@ -51,8 +61,17 @@ class ReservationsDao extends BaseDao
         return $this->delete($id);
     }
 
-    public function update_reservation($id, $reservations)
+    public function update_reservation($id, $fields)
     {
-        return $this->update($reservations, $id, "id");
+        $set = [];
+        $params = ['id' => $id];
+        foreach ($fields as $key => $value) {
+            $set[] = "$key = :$key";
+            $params[$key] = $value;
+        }
+        $set_clause = implode(', ', $set);
+        $query = "UPDATE reservations SET $set_clause WHERE id = :id";
+        $this->query($query, $params);
+        return $this->get_reservation_by_id($id);
     }
 }
