@@ -127,6 +127,7 @@ function load_user_profile() {
       greetingElement.textContent = `Hi ${firstName}, welcome to your profile`;
     }
   });
+  loadUserReservations();
   loadUserFavourites();
 }
 
