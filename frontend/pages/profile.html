@@ -21,6 +21,12 @@
         </div>
       </div>
     </div>
+    <div class="reservations-section mt-5">
+      <h3 class="text-center">Your Reservations</h3>
+      <div id="reservations-list" class="row mt-4">
+        <!-- Reservation cards will be dynamically loaded here -->
+      </div>
+    </div>
     <!-- Favourites Section -->
     <div class="favourites-section mt-5">
       <h3 class="text-center">Your Favourite Shops</h3>
@@ -34,4 +40,5 @@
 <script>
   load_user_profile();
   loadUserFavourites();
+  loadUserReservations();
 </script>

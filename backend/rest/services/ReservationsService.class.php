@@ -9,8 +9,8 @@ class ReservationsService extends BaseService
 
     public function __construct()
     {
-        $this -> reservationsDao = new ReservationsDao();
-        parent::__construct($this -> reservationsDao);
+        $this->reservationsDao = new ReservationsDao();
+        parent::__construct($this->reservationsDao);
     }
 
     public function get_all_reservations()
@@ -43,8 +43,8 @@ class ReservationsService extends BaseService
         return $this->reservationsDao->delete_reservation($id);
     }
 
-    public function update_reservation($id, $reservations)
+    public function update_reservation($id, $fields)
     {
-        return $this->reservationsDao->update_reservation($id, $reservations);
+        return $this->reservationsDao->update_reservation($id, $fields);
     }
 }
