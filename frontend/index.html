@@ -138,6 +138,11 @@
         data-load="admin/manage-shops.html"
         role="main"
       ></section>
+      <section
+        id="admin-manage-reviews"
+        data-load="admin/manage-reviews.html"
+        role="main"
+      ></section>
     </main>
     <!-- end spapp -->
     <!-- footer -->
@@ -250,10 +255,14 @@
     <script src="services/reviews.js"></script>
     <script src="services/favourites.js"></script>
     <script src="services/helper.js"></script>
-    <script src="services/admin.js"></script>
+
+    <script src="services/admin-services/admin-shops.js"></script>
+    <script src="services/admin-services/admin-users.js"></script>
+    <script src="services/admin-services/admin-reviews.js"></script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        check_user_presence(); // Call the function to update the profile button
+        check_user_presence();
         check_user_role();
       });
     </script>

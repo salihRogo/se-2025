@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../services/AuthService.class.php';
-
 Flight::route('GET /admin/users', function () {
     // Ensure the user is an admin
     $user = Flight::authService()->get_current_user();

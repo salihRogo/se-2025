@@ -11,7 +11,7 @@ class ShopsDao extends BaseDao
 
     public function get_all_shops()
     {
-        $query = "SELECT s.id, s.name, s.address, s.city, si.image_url
+        $query = "SELECT s.*, si.image_url
                     FROM shops s
                     LEFT JOIN (
                         SELECT shop_id, MIN(image_url) AS image_url
