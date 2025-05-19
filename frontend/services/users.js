@@ -168,6 +168,7 @@ function logout_user() {
 
 function check_user_presence() {
   const userId = window.localStorage.getItem("user_id");
+  const userRole = window.localStorage.getItem("role");
 
   // Get the profile button element
   const profileButton = document.querySelector("#profile-button");
@@ -175,8 +176,11 @@ function check_user_presence() {
   if (userId) {
     // If user is logged in, redirect to the profile page
     if (profileButton) {
-      profileButton.setAttribute("href", "#profile");
-      profileButton.innerHTML = '<i class="fas fa-user"></i> ';
+      if (userRole === "user") {
+        profileButton.setAttribute("href", "#profile");
+      } else if (userRole === "admin") {
+        profileButton.setAttribute("href", "#admin-profile");
+      }
     }
   } else {
     // If user is not logged in, redirect to the login page
