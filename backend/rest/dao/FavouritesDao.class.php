@@ -24,7 +24,6 @@ class FavouritesDao extends BaseDao
 
     public function get_user_favourites($user_id)
     {
-        $params = ["user_id" => $user_id];
         $query = "SELECT s.name AS shop_name, s.address AS shop_address, s.city AS shop_city, si.image_url AS shop_image, fs.id AS favourite_id
                 FROM 
                 favourite_shops fs
@@ -33,8 +32,9 @@ class FavouritesDao extends BaseDao
                         SELECT shop_id, MIN(image_url) AS image_url
                         FROM shop_images
                         GROUP BY shop_id
-                    ) si ON s.id = si.shop_id;
+                    ) si ON s.id = si.shop_id
                 WHERE fs.user_id = :user_id";
+        $params = ["user_id" => $user_id];
         return $this->query($query, $params);
     }
 

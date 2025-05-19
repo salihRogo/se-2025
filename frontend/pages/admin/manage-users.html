@@ -181,6 +181,17 @@
     transform: translateY(-2px);
   }
 
+  .view-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+
+  .view-btn:hover {
+    background-color: #bdbdbd;
+    color: #111;
+    transform: translateY(-2px);
+  }
+
   .delete-btn {
     background-color: #f44336;
     color: white;
@@ -206,7 +217,7 @@
 </style>
 
 <script>
-  Admin.fetch_all_users();
+  AdminManageUsers.fetch_all_users();
   document
     .getElementById("saveUserChanges")
     .addEventListener("click", function () {
@@ -231,7 +242,7 @@
         $("#userModal").modal("hide");
 
         // Refresh the user table
-        Admin.fetch_all_users();
+        AdminManageUsers.fetch_all_users();
       });
     });
 </script>
