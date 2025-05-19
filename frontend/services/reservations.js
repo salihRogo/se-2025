@@ -31,11 +31,6 @@ function confirmReservation(shop_id) {
       toastr.warning(`You have to be logged in in order to reserve a spot.`);
     }
   );
-
-  function loadUserReservations() {
-    const userId = window.localStorage.getItem("user_id");
-    if (!userId) return;
-  }
 }
 function loadUserReservations() {
   const userId = window.localStorage.getItem("user_id");
