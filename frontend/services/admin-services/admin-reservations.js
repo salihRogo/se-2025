@@ -1,31 +1,41 @@
 var AdminManageReservations = {
-    fetch_shop_reservations(shop_id) {
-        window.location.hash = "#admin-manage-reservations";
-        RestClient.get(`admin/shop/reservations/${shop_id}`, function(reservations) {
-            const reservationsContainer = document.getElementById("admin-reservations-container");
-            reservationsContainer.innerHTML = "";
+  fetch_shop_reservations(shop_id) {
+    window.location.hash = "#admin-manage-reservations";
+    RestClient.get(
+      `admin/shop/reservations/${shop_id}`,
+      function (reservations) {
+        const reservationsContainer = document.getElementById(
+          "admin-reservations-container"
+        );
+        reservationsContainer.innerHTML = "";
 
-            reservations.forEach((reservation) => {
-                const reservationDiv = document.createElement("div");
-                reservationDiv.className = "single-user-item";
-                reservationDiv.innerHTML = `
+        reservations.forEach((reservation) => {
+          const reservationDiv = document.createElement("div");
+          reservationDiv.className = "single-user-item";
+          reservationDiv.innerHTML = `
                     <table class="user-profile-table">
                         <tr>
-                            <th class="label-cell">User Full Name</th>
+                            <th class="label-cell">Customer Name</th>
                             <td class="value-cell editable" data-field="name">
-                                <span class="display-mode">${reservation.full_name}</span>
+                                <span class="display-mode">${
+                                  reservation.full_name
+                                }</span>
                             </td>
                         </tr>
                         <tr>
                             <th class="label-cell">Reservation Time</th>
                             <td class="value-cell editable" data-field="reservation_time">
-                                <span class="display-mode">${reservation.reservation_time}</span>
+                                <span class="display-mode">${
+                                  reservation.reservation_time
+                                }</span>
                             </td>
                         </tr>
                         <tr>
                             <th class="label-cell">Number of Guests</th>
                             <td class="value-cell editable" data-field="guests">
-                                <span class="display-mode">${reservation.number_of_guests}</span>
+                                <span class="display-mode">${
+                                  reservation.number_of_guests
+                                }</span>
                             </td>
                         </tr>
                         <tr>
@@ -33,22 +43,23 @@ var AdminManageReservations = {
                             <td class="value-cell editable" data-field="role">
                             <span class="display-mode">
                                 <span class="status-badge ${reservation.status.toLowerCase()}">${
-                                    reservation.status
-                                }</span>
+            reservation.status
+          }</span>
                             </span>
                             </td>
                         </tr>
                         <tr class="actions-row">
                             <td colspan="2">
                                 <div class="action-buttons">
-                                    <button class="btn edit-btn" onclick="AdminManageReservations.approveReservation(${reservation.id})">
-                                        <i class="fas fa-trash-alt"></i> Approve
+                                    <button class="btn edit-btn" onclick="AdminManageReservations.approveReservation(${
+                                      reservation.id
+                                    })">
+                                        <i class="fas fa-check"></i> Approve
                                     </button>
-                                    <button class="btn delete-btn" onclick="AdminManageReservations.denyReservation(${reservation.id})">
-                                        <i class="fas fa-trash-alt"></i> Deny
-                                    </button>
-                                    <button class="btn view-btn" onclick="AdminManageReservations.deleteReservation(${reservation.id})">
-                                        <i class="fas fa-trash-alt"></i> Delete
+                                    <button class="btn delete-btn" onclick="AdminManageReservations.denyReservation(${
+                                      reservation.id
+                                    })">
+                                        <i class="fas fa-ban"></i> Deny
                                     </button>
                                 </div>
                             </td>
@@ -56,8 +67,33 @@ var AdminManageReservations = {
                     </table>
                     <br>
                 `;
-                reservationsContainer.appendChild(reservationDiv);
-            });
+          reservationsContainer.appendChild(reservationDiv);
         });
-    }
-}
+      }
+    );
+  },
+  approveReservation(reservation_id) {
+    alert("Are you sure that you want to approve this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Pending") {
+        reservation.status = "Confirmed";
+        RestClient.patch(
+          `admin/reservation/status/${reservation.id}`,
+          reservation,
+          function () {
+            updateUsersLoyaltyPoints(reservation.user_id, reservation.shop_id);
+          }
+        );
+      }
+    });
+  },
+};
+
+updateUsersLoyaltyPoints = function (user_id, shop_id) {
+  RestClient.get(`user/${user_id}`, function (user) {
+    user.loyalty_points = user.loyalty_points + 1;
+    RestClient.put(`user/${user.id}`, user, function () {
+        AdminManageReservations.fetch_shop_reservations(shop_id);
+    });
+  });
+};

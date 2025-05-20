@@ -65,6 +65,17 @@ class ReservationsDao extends BaseDao
         return $this->delete($id);
     }
 
+    public function update_reservation_status($id, $data)
+    {
+        $query = 'UPDATE reservations SET status = :status WHERE id = :id';
+        $params = [
+            'status' => $data['status'],
+            'id' => $id
+        ];
+        $this->query($query, $params);
+        return $this->get_reservation_by_id($id);
+    }
+
     public function update_reservation($id, $fields)
     {
         $set = [];

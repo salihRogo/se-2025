@@ -38,6 +38,11 @@ class ReservationsService extends BaseService
         return $this->reservationsDao->get_shop_reservations($shop_id);
     }
 
+    public function update_reservation_status($id, $status)
+    {
+        return $this->reservationsDao->update_reservation_status($id, $status);
+    }
+
     public function delete_reservation($id)
     {
         return $this->reservationsDao->delete_reservation($id);

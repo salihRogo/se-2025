@@ -106,7 +106,7 @@ function deleteUser(user_id) {
         toastr.success("User deleted successfully!");
 
         // Refresh the user table
-        Admin.fetch_all_users();
+        AdminManageUsers.fetch_all_users();
       },
       function (error) {
         // Handle errors
