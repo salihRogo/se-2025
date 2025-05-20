@@ -40,7 +40,7 @@ class ReviewsDao extends BaseDao
     public function get_shop_reviews($shop_id)
     {
         $params = ["shop_id" => $shop_id];
-        $query = "SELECT r.comment, u.full_name 
+        $query = "SELECT r.comment, u.full_name, r.id, r.shop_id
               FROM reviews r
               JOIN users u ON r.user_id = u.id
               WHERE r.shop_id = :shop_id";

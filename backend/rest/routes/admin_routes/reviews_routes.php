@@ -9,3 +9,9 @@ Flight::route('GET /admin/shop/reviews/@shop_id', function($shop_id) {
 
     Flight::json(Flight::reviewsService()->get_shop_reviews($shop_id));
 });
+
+
+Flight::route('DELETE /admin/review/@id', function ($id) {
+    Flight::reviewsService()->delete_review($id);
+    Flight::json(["message" => "User deleted successfully"]);
+});

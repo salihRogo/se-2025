@@ -56,8 +56,11 @@ var AdminManageShops = {
           <tr class="actions-row">
             <td colspan="2">
               <div class="action-buttons">
+                <button class="btn view-btn" onclick="AdminManageReservations.fetch_shop_reservations('${shop.id}')">
+                  <i class="fas fa-ticket"></i> View Reservations
+                </button>
                 <button class="btn view-btn" onclick="AdminManageReviews.displayShopReviews('${shop.id}')">
-                  <i class="fas fa-eye"></i> View Reviews
+                  <i class="fas fa-comments"></i> View Reviews
                 </button>
                 <button class="btn edit-btn" onclick="openShopEditModal('${shop.id}')">
                   <i class="fas fa-edit"></i> Edit

@@ -51,7 +51,11 @@ class ReservationsDao extends BaseDao
 
     public function get_shop_reservations($shop_id)
     {
-        $query = 'SELECT * FROM reservations WHERE shop_id = :shop_id';
+        $query = 'SELECT r.*, u.full_name
+                    FROM reservations r
+                    JOIN users u ON r.user_id = u.id
+                    JOIN shops s ON r.shop_id = s.id
+                    WHERE shop_id = :shop_id';
         $params = ["shop_id" => $shop_id];
         return $this->query($query, $params);
     }
