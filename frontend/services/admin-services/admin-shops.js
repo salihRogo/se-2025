@@ -45,14 +45,6 @@ var AdminManageShops = {
               <span class="display-mode">${shop.description}</span>
             </td>
           </tr>
-          <tr>
-            <th class="label-cell">Image Url</th>
-            <td class="value-cell editable" data-field="image_url">
-              <span class="display-mode">
-                <span class="display-mode">${shop.image_url}</span>
-              </span>
-            </td>
-          </tr>
           <tr class="actions-row">
             <td colspan="2">
               <div class="action-buttons">
@@ -79,3 +71,41 @@ var AdminManageShops = {
     });
   },
 };
+
+function openShopEditModal(shop_id) {
+  // Fetch the shop data asynchronously
+  RestClient.get("shops/" + shop_id, function (shop_unreal) {
+    shop = shop_unreal[0];
+    // Populate the modal fields with shop data
+    document.getElementById("editShopName").value = shop.name || "";
+    document.getElementById("editAddress").value = shop.address || "";
+    document.getElementById("editCity").value = shop.city || "";
+    document.getElementById("editContactNumber").value =
+      shop.contact_number || "";
+    document.getElementById("editOpensAt").value = shop.opens_at || "";
+    document.getElementById("editClosesAt").value = shop.closes_at || "";
+    document.getElementById("editDescription").value = shop.description || "";
+
+    // Store the shop ID in a hidden field or variable for later use
+    document.getElementById("shopModal").dataset.shopId = shop.id;
+
+    // Show the modal
+    $("#shopModal").modal("show");
+  });
+}
+
+function deleteShop(shop_id) {
+  if (confirm("Are you sure you want to delete this shop?")) {
+    RestClient.delete(
+      `admin/shops/${shop_id}`,
+      shop_id,
+      function (response) {
+        toastr.success("Shop deleted successfully!");
+        AdminManageShops.fetch_all_shops();
+      },
+      function (error) {
+        toastr.error("Failed to delete the shop. Please try again.");
+      }
+    );
+  }
+}

@@ -13,6 +13,100 @@
 
 <div id="admin-shops-container" class="container mt-100 mb-100"></div>
 
+<!-- Shop Edit Modal -->
+<div id="shopModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Shop</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="shopEditForm">
+          <div class="form-group">
+            <label for="editShopName">Shop Name</label>
+            <input
+              type="text"
+              id="editShopName"
+              class="form-control"
+              placeholder="Enter shop name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editAddress">Address</label>
+            <input
+              type="text"
+              id="editAddress"
+              class="form-control"
+              placeholder="Enter address"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editCity">City</label>
+            <input
+              type="text"
+              id="editCity"
+              class="form-control"
+              placeholder="Enter city"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editContactNumber">Contact Number</label>
+            <input
+              type="text"
+              id="editContactNumber"
+              class="form-control"
+              placeholder="Enter contact number"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editOpensAt">Opens At</label>
+            <input
+              type="time"
+              id="editOpensAt"
+              class="form-control"
+              placeholder="Enter opens at"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editClosesAt">Closes At</label>
+            <input
+              type="time"
+              id="editClosesAt"
+              class="form-control"
+              placeholder="Enter closes at"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editDescription">Description</label>
+            <textarea
+              id="editDescription"
+              class="form-control"
+              placeholder="Enter description"
+              rows="3"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveShopChanges">
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
   .user-profile-table {
     width: 100%;
@@ -153,4 +247,24 @@
 
 <script>
   AdminManageShops.fetch_all_shops();
+  document
+    .getElementById("saveShopChanges")
+    .addEventListener("click", function () {
+      const shopId = document.getElementById("shopModal").dataset.shopId;
+
+      const updatedShop = {
+        name: document.getElementById("editShopName").value,
+        address: document.getElementById("editAddress").value,
+        city: document.getElementById("editCity").value,
+        contact_number: document.getElementById("editContactNumber").value,
+        opens_at: document.getElementById("editOpensAt").value,
+        closes_at: document.getElementById("editClosesAt").value,
+        description: document.getElementById("editDescription").value,
+      };
+
+      RestClient.put(`admin/shops/${shopId}`, updatedShop, function (response) {
+        $("#shopModal").modal("hide");
+        AdminManageShops.fetch_all_shops();
+      });
+    });
 </script>
