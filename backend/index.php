@@ -22,6 +22,7 @@ require_once __DIR__ . '/rest/routes/middleware_routes.php';
 require_once __DIR__ . '/rest/routes/admin_routes/shops_routes.php';
 require_once __DIR__ . '/rest/routes/admin_routes/users_routes.php';
 require_once __DIR__ . '/rest/routes/admin_routes/reviews_routes.php';
+require_once __DIR__ . '/rest/routes/admin_routes/reservations_routes.php';
 
 require_once __DIR__ . '/rest/routes/shops_routes.php';
 require_once __DIR__ . '/rest/routes/reviews_routes.php';
