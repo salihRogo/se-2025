@@ -61,6 +61,11 @@ var AdminManageReservations = {
                                     })">
                                         <i class="fas fa-ban"></i> Deny
                                     </button>
+                                    <button class="btn delete-btn" onclick="AdminManageReservations.deleteReservation(${
+                                      reservation.id
+                                    })">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -72,6 +77,20 @@ var AdminManageReservations = {
       }
     );
   },
+  deleteReservation(reservation_id) {
+    alert("Are you sure that you want to delete this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Cancelled") {
+        RestClient.delete(
+          `reservations/${reservation.id}`,
+          reservation.id,
+          function () {
+            AdminManageReservations.fetch_shop_reservations(reservation.shop_id);
+          }
+        );
+      }
+    });
+  },
   approveReservation(reservation_id) {
     alert("Are you sure that you want to approve this reservation?");
     RestClient.get("reservations/" + reservation_id, function (reservation) {
@@ -81,30 +100,47 @@ var AdminManageReservations = {
           `admin/reservation/status/${reservation.id}`,
           reservation,
           function () {
-            updateUsersLoyaltyPoints(reservation.user_id, reservation.shop_id);
+            increaseUsersLoyaltyPoints(
+              reservation.user_id,
+              reservation.shop_id
+            );
             checkUsersLoyaltyPoints(reservation.user_id);
           }
         );
       }
     });
   },
+  denyReservation(reservation_id) {
+    alert("Are you sure that you want to deny this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Pending") {
+        reservation.status = "Cancelled";
+        RestClient.patch(
+          `admin/reservation/status/${reservation.id}`,
+          reservation,
+          function () {}
+        );
+      }
+    });
+  },
 };
 
-updateUsersLoyaltyPoints = function (user_id, shop_id) {
+increaseUsersLoyaltyPoints = function (user_id, shop_id) {
   RestClient.get(`user/${user_id}`, function (user) {
     user.loyalty_points = user.loyalty_points + 1;
     RestClient.put(`user/${user.id}`, user, function () {
-        AdminManageReservations.fetch_shop_reservations(shop_id);
+      AdminManageReservations.fetch_shop_reservations(shop_id);
     });
   });
 };
 
-checkUsersLoyaltyPoints = function(user_id) {
-  RestClient.get(`users/${user_id}`, function(user) {
+checkUsersLoyaltyPoints = function (user_id) {
+  RestClient.get(`users/${user_id}`, function (user) {
     if (user.loyalty_points === 10) {
-      RestClient.post("", user_id, function(response) {
-        RestClient.put()   // smanjiti broj loyalty poena usera na 0;
-      })
+      RestClient.post("coupons/user", user.id, function () {
+        user.loyalty_points = 0;
+        RestClient.put(`user/${user.id}`, user, function () {});
+      });
     }
-  })
-}
+  });
+};

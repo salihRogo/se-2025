@@ -89,7 +89,6 @@ function loadUserReservations() {
         }</span>
               </div>
               <div class="d-flex flex-column align-items-center">
-                <span class="reservation-label" style="opacity:0;"><strong>Action</strong></span>
                 <button class="cart-btn mt-2" onclick="cancelReservation(${
                   reservation.id
                 });">Cancel</button>
@@ -106,15 +105,40 @@ function loadUserReservations() {
 }
 
 function cancelReservation(reservation_id) {
-  RestClient.put(
-    `reservations/${reservation_id}`,
-    { status: "Cancelled" },
-    function () {
-      toastr.success("Reservation cancelled.");
-      loadUserReservations();
-    },
-    function () {
-      toastr.error("Failed to cancel reservation.");
+  RestClient.get(`reservations/${reservation_id}`, function (reservation) {
+    if (reservation.status === "Pending") {
+      RestClient.put(
+        `reservations/${reservation.id}`,
+        { status: "Cancelled" },
+        function () {
+          toastr.success("Reservation cancelled.");
+          loadUserReservations();
+        },
+        function () {
+          toastr.error("Failed to cancel reservation.");
+        }
+      );
+    } else if (reservation.status === "Confirmed") {
+      RestClient.put(
+        `reservations/${reservation.id}`,
+        { status: "Cancelled" },
+        function () {
+          toastr.success("Reservation cancelled.");
+          decreaseUserLoyaltyPoints(reservation.user_id);
+          loadUserReservations();
+        },
+        function () {
+          toastr.error("Failed to cancel reservation.");
+        }
+      );
     }
-  );
+  });
+}
+
+function decreaseUserLoyaltyPoints(user_id) {
+  RestClient.get(`user/${user_id}`, function (user) {
+    user.loyalty_points = user.loyalty_points - 1;
+    RestClient.put(`user/${user.id}`, user, function () {
+    });
+  });
 }
