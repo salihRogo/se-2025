@@ -82,6 +82,7 @@ var AdminManageReservations = {
           reservation,
           function () {
             updateUsersLoyaltyPoints(reservation.user_id, reservation.shop_id);
+            checkUsersLoyaltyPoints(reservation.user_id);
           }
         );
       }
@@ -97,3 +98,13 @@ updateUsersLoyaltyPoints = function (user_id, shop_id) {
     });
   });
 };
+
+checkUsersLoyaltyPoints = function(user_id) {
+  RestClient.get(`users/${user_id}`, function(user) {
+    if (user.loyalty_points === 10) {
+      RestClient.post("", user_id, function(response) {
+        RestClient.put()   // smanjiti broj loyalty poena usera na 0;
+      })
+    }
+  })
+}
