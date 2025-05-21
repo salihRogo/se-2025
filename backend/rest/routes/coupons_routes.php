@@ -3,8 +3,8 @@
 require_once __DIR__ . '/../services/CouponsService.class.php';
 
 Flight::route('POST /coupons/user', function () {
-    $user_id = Flight::request()->data->getData();
-    $coupons = Flight::couponService()->add_coupon($user_id);
+    $data = Flight::request()->data->getData();
+    $coupons = Flight::couponService()->add_coupon($data);
     Flight::json($coupons);
 }); 
 

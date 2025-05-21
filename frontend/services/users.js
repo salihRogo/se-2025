@@ -111,7 +111,6 @@ function load_user_profile() {
   }
 
   RestClient.get("user/" + user_id, function (data) {
-    console.log(data);
 
     document.getElementById("profile-full-name").textContent =
       data.full_name || "Full Name";
