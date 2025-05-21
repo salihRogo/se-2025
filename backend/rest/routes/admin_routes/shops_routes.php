@@ -27,3 +27,20 @@ Flight::route('DELETE /admin/shops/@id', function ($id) {
 
     Flight::json(["message" => "Shop and all related data deleted successfully"]);
 });
+
+Flight::route('PUT /admin/shops/@id', function ($id) {
+    $user = Flight::authService()->get_current_user();
+    if ($user['role'] !== 'admin') {
+        Flight::halt(403, "Access denied");
+    }
+
+    $shop = Flight::shopsService()->get_shop_by_id($id);
+    if (!$shop) {
+        Flight::halt(404, "Shop not found");
+    }
+
+    $data = Flight::request()->data->getData();
+    Flight::shopsService()->update_shop($id, $data);
+
+    Flight::json(["message" => "Shop updated successfully"]);
+});
