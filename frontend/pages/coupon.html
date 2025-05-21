@@ -2,10 +2,9 @@
 <!-- end breadcrumb section -->
 
 <div class="reservations-section mt-5 mb-5">
-  <h3 class="text-center loyalty-title">Number of loyalty points: 5</h3>
+  <h3 class="text-center loyalty-title" id="number-of-loyalty-points"></h3>
   <h3 class="text-center your-coupons-title">Your Coupons:</h3>
   <div id="reservations-list" class="row mt-4">
-    <!-- Reservation cards will be dynamically loaded here -->
   </div>
 </div>
 
@@ -14,19 +13,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 offset-lg-3 text-center">
-        <div class="coupon-card">
-          <div class="coupon-header">
-            <h2>COUPON</h2>
-          </div>
-          <div class="coupon-value">
-            <h1 class="coupon-amount">$20</h1>
-          </div>
-          <div class="coupon-details">
-            <p class="brand">Buy In Any Of Our Shops</p>
-            <p class="text">Valid Through:</p>
-            <p class="expiration">2025/06/20</p>
-          </div>
-        </div>
+        <!-- Dynamic coupons will be inserted here -->
+        <div id="user-coupons-list"></div>
         <div class="coupon-terms container mb-5">
           <h2 class="text-center coupon-terms-title">Terms & Conditions</h2>
           <ul class="coupon-terms-list">
@@ -40,3 +28,7 @@
   </div>
 </div>
 <!-- end coupon section -->
+<script>
+  displayLoyaltyPoints(localStorage.getItem("user_id"));
+  displayAllCoupons(localStorage.getItem("user_id"));
+</script>

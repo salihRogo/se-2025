@@ -9,6 +9,12 @@ use Firebase\JWT\Key;
 Flight::route('/*', function () {
     $req_method = Flight::request()->method;
     $req_url = Flight::request()->url;
+    if ($req_method == 'POST' && $req_url == "/coupons/user") {
+        return TRUE;
+    }
+    if ($req_method == 'GET' && preg_match('#^/coupons/\d+$#', $req_url)) {
+        return TRUE;
+    }
     if ($req_method == 'POST' && $req_url == "/login") {
         return TRUE;
     }

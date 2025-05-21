@@ -16,8 +16,8 @@
             <p id="profile-phone-number"></p>
           </div>
           <div>
-            <a
-              href="#coupon"
+            <a onclick="displayLoyaltyPoints(localStorage.getItem('user_id'))"
+              href="javascript:void[0]"
               style="
                 margin-left: 12px;
                 color: #b288ec;
@@ -40,7 +40,7 @@
       <div id="reservations-list" class="row mt-4">
         <!-- Reservation cards will be dynamically loaded here -->
       </div>
-    </div>
+    </div> 
     <!-- Favourites Section -->
     <div class="favourites-section mt-5">
       <h3 class="text-center">Your Favourite Shops</h3>
