@@ -88,6 +88,8 @@ var AdminManageReservations = {
             AdminManageReservations.fetch_shop_reservations(reservation.shop_id);
           }
         );
+      } else {
+        toastr.error("You can only delete cancelled reservations.");
       }
     });
   },

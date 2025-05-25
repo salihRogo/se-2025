@@ -51,6 +51,12 @@ var AdminManageUsers = {
               </span>
             </td>
           </tr>
+          <tr>
+            <th class="label-cell">Full Name</th>
+            <td class="value-cell editable" data-field="full_name">
+              <span class="display-mode">${user.loyalty_points}</span>
+            </td>
+          </tr>
           <tr class="actions-row">
             <td colspan="2">
               <div class="action-buttons">
@@ -79,7 +85,6 @@ var AdminManageUsers = {
 function openUserEditModal(user_id) {
   // Fetch the user data asynchronously
   RestClient.get("user/" + user_id, function (user) {
-    
     // Populate the modal fields with user data
     document.getElementById("editFullName").value = user.full_name;
     document.getElementById("editPhoneNumber").value = user.phone_number || "";
