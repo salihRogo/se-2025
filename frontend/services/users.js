@@ -207,6 +207,7 @@ window.addEventListener("hashchange", function () {
     load_register_page();
   }
 });
+// lkaallalaala
 if (window.location.hash === "#register") {
   load_register_page();
 }
