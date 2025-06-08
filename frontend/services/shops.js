@@ -124,8 +124,7 @@ function display_single_shop(shop_id) {
     shop_id = localStorage.getItem("shop_id");
   }
 
-
-  if (localStorage.getItem("shop_id") !== shop_id || localStorage.getItem("shop_id") == null) {
+  if (localStorage.getItem("shop_id") !== shop_id || localStorage.getItem("shop_id") === null) {
     window.localStorage.setItem("shop_id", shop_id);
   }
 

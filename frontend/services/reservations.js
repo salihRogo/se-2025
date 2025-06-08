@@ -16,21 +16,76 @@ function confirmReservation(shop_id) {
   data.number_of_guests = guestNumber;
   data.reservation_time = `${reservationDate} ${reservationTime}`;
 
-  console.log(data);
+  if (data.number_of_guests < 1) {
+    alert("Number of guests must be greater than 0.");
+    return;
+  }
 
-  RestClient.post(
-    "reservation",
-    data,
-    function (response) {
-      window.setTimeout(1000);
-      toastr.success(
-        `Reservation confirmed for ${guestNumber} guests on ${reservationDate} at ${reservationTime}.`
+  const today = new Date();
+  const selectedDate = new Date(reservationDate);
+  const now = new Date();
+
+  // Check if reservation date is in the past
+  if (selectedDate < today.setHours(0, 0, 0, 0)) {
+    alert("Reservation date must be today or in the future.");
+    return;
+  }
+
+  // If reservation is for today, check if time is at least 2 hours from now
+  if (selectedDate.toDateString() === now.toDateString()) {
+    const reservationDateTime = new Date(
+      `${reservationDate} ${reservationTime}`
+    );
+    const minimumTime = new Date(now.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours
+
+    if (reservationDateTime <= minimumTime) {
+      alert(
+        "For today's reservations, time must be at least 2 hours from now."
       );
-    },
-    function () {
-      toastr.warning(`You have to be logged in in order to reserve a spot.`);
+      return;
     }
-  );
+  }
+
+  RestClient.get("shops/" + shop_id, function (data2) {
+    const shop = data2[0];
+    // Convert time strings to comparable format (minutes from midnight)
+    function timeToMinutes(timeStr) {
+      const [hours, minutes] = timeStr.split(":");
+      return parseInt(hours) * 60 + parseInt(minutes);
+    }
+
+    const reservationMinutes = timeToMinutes(reservationTime);
+    const openMinutes = timeToMinutes(shop.opens_at);
+    const closeMinutes = timeToMinutes(shop.closes_at) - 60; // 1 hour before closing
+
+    if (reservationMinutes < openMinutes || reservationMinutes > closeMinutes) {
+      const adjustedCloseTime =
+        Math.floor(closeMinutes / 60)
+          .toString()
+          .padStart(2, "0") +
+        ":" +
+        (closeMinutes % 60).toString().padStart(2, "0");
+      alert(
+        `Reservation time must be between ${shop.opens_at} and ${adjustedCloseTime}.`
+      );
+      return;
+    }
+
+    // If validation passes, make the reservation
+    RestClient.post(
+      "reservation",
+      data,
+      function (response) {
+        window.setTimeout(1000);
+        toastr.success(
+          `Reservation confirmed for ${guestNumber} guests on ${reservationDate} at ${reservationTime}.`
+        );
+      },
+      function () {
+        toastr.warning(`You have to be logged in in order to reserve a spot.`);
+      }
+    );
+  });
 }
 function loadUserReservations() {
   const userId = window.localStorage.getItem("user_id");
@@ -138,7 +193,6 @@ function cancelReservation(reservation_id) {
 function decreaseUserLoyaltyPoints(user_id) {
   RestClient.get(`user/${user_id}`, function (user) {
     user.loyalty_points = user.loyalty_points - 1;
-    RestClient.put(`user/${user.id}`, user, function () {
-    });
+    RestClient.put(`user/${user.id}`, user, function () {});
   });
 }
