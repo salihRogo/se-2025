@@ -28,7 +28,7 @@ Flight::route('POST /login', function () {
     $jwt_payload = [
         'user' => $user,
         'iat' => time(),
-        'exp' => time() + (60 * 60) // Valid for 1 hour
+        'exp' => time() + (60 * 60 * 24) // Valid for 1 day
     ];
 
     // Generate JWT token

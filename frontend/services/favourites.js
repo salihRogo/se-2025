@@ -18,7 +18,11 @@ function addFavourite(shopId) {
       toastr.success("Shop added to favourites successfully.");
     },
     function (error) {
-      toastr.error("Failed to add shop to favourites. Please try again.");
+      if (error && error.message) {
+        toastr.error(error.message);
+      } else {
+        toastr.error("Failed to add shop to favourites. Please try again.");
+      }
     }
   );
 }
