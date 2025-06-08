@@ -54,9 +54,42 @@ class ShopsDao extends BaseDao
         return $this->query($query, $params);
     }
 
-    public function add_shop($shops)
+    public function add_shop($shop)
     {
-        return $this->add($shops);
+        // 1. Insert shop into shops table
+        $query = "INSERT INTO shops 
+        (name, address, city, contact_number, opens_at, closes_at, description)
+        VALUES
+        (:name, :address, :city, :contact_number, :opens_at, :closes_at, :description)";
+
+        $params = [
+            'name' => $shop['name'],
+            'address' => $shop['address'],
+            'city' => $shop['city'],
+            'contact_number' => $shop['contact_number'],
+            'opens_at' => $shop['opens_at'],
+            'closes_at' => $shop['closes_at'],
+            'description' => $shop['description']
+        ];
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute($params);
+
+        $shop_id = $this->connection->lastInsertId();
+        $image_url=$shop["image_url"];
+
+        // 2. If image_url is provided, insert into shop_images table
+        if ($image_url) {
+            $img_query = "INSERT INTO shop_images (shop_id, image_url) VALUES (:shop_id, :image_url)";
+            $img_params = [
+                'shop_id' => $shop_id,
+                'image_url' => $image_url
+            ];
+            $img_stmt = $this->connection->prepare($img_query);
+            $img_stmt->execute($img_params);
+        }
+
+        return $shop_id;
     }
 
     public function delete_shop($id)

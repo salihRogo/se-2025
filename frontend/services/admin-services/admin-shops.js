@@ -109,3 +109,57 @@ function deleteShop(shop_id) {
     );
   }
 }
+
+function submitAddShop() {
+  // Gather form values
+  const shopData = {
+    name: document.getElementById("addShopName").value,
+    address: document.getElementById("addAddress").value,
+    city: document.getElementById("addCity").value,
+    contact_number: document.getElementById("addContactNumber").value,
+    opens_at: document.getElementById("addOpensAt").value,
+    closes_at: document.getElementById("addClosesAt").value,
+    description: document.getElementById("addDescription").value,
+  };
+
+  // Handle image upload
+  const imageInput = document.getElementById("addShopImage");
+  const imageFile = imageInput.files[0];
+
+  if (!imageFile) {
+    toastr.error("Please select an image file for the shop.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("shopImage", imageFile);
+
+  // 1. Upload the image
+  fetch("/se-2025/backend/api/upload/shop-image/", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to upload image");
+      return response.json();
+    })
+    .then((fileData) => {
+      shopData.image_url = "assets/img/" + fileData.filename;
+      // 2. Add the shop (without image, get shop ID)
+      RestClient.post("admin/shops", shopData, function (shopResponse) {
+        // 3. Link the image to the shop
+        const shopId = shopResponse.id || shopResponse.shop_id;
+        if (!shopId) {
+          toastr.error("Shop created, but could not link image.");
+          return;
+        }
+        $("#addShopModal").modal("hide");
+        toastr.success("Shop added successfully!");
+        AdminManageShops.fetch_all_shops();
+        document.getElementById("addShopForm").reset();
+      });
+    })
+    .catch((err) => {
+      toastr.error("Failed to add shop: " + (err.message || "Unknown error"));
+    });
+}

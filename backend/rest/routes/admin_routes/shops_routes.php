@@ -44,3 +44,18 @@ Flight::route('PUT /admin/shops/@id', function ($id) {
 
     Flight::json(["message" => "Shop updated successfully"]);
 });
+
+Flight::route('POST /admin/shops', function () {
+    $user = Flight::authService()->get_current_user();
+    if ($user['role'] !== 'admin') {
+        Flight::halt(403, "Access denied");
+    }
+
+    $data = Flight::request()->data->getData();
+    $shop_id = Flight::shopsService()->add_shop($data);
+
+    Flight::json([
+        "message" => "Shop added successfully",
+        "id" => $shop_id
+    ]);
+});
