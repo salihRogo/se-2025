@@ -16,7 +16,8 @@
             <p id="profile-phone-number"></p>
           </div>
           <div>
-            <a onclick="displayLoyaltyPoints(localStorage.getItem('user_id'))"
+            <a
+              onclick="displayLoyaltyPoints(localStorage.getItem('user_id'))"
               href="javascript:void[0]"
               style="
                 margin-left: 12px;
@@ -30,6 +31,11 @@
             </a>
           </div>
           <div class="profile-actions mt-4">
+            <button class="boxed-btn" onclick="showResetPasswordModal();">
+              Reset password
+            </button>
+          </div>
+          <div class="profile-actions mt-4">
             <button class="boxed-btn" onclick="logout_user();">Log out</button>
           </div>
         </div>
@@ -40,7 +46,7 @@
       <div id="reservations-list" class="row mt-4">
         <!-- Reservation cards will be dynamically loaded here -->
       </div>
-    </div> 
+    </div>
     <!-- Favourites Section -->
     <div class="favourites-section mt-5">
       <h3 class="text-center">Your Favourite Shops</h3>
@@ -54,3 +60,43 @@
 <script>
   load_user_profile();
 </script>
+
+<div id="resetPasswordModal" class="custom-modal">
+  <div class="custom-modal-dialog">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h4 class="custom-modal-title">Reset Password</h4>
+        <button type="button" class="custom-modal-close" onclick="closeResetPasswordModal()">&times;</button>
+      </div>
+      <div class="custom-modal-body">
+        <div class="form-group mb-3">
+          <input
+            id="reset-new-password"
+            type="password"
+            placeholder="New password"
+            class="form-control"
+          />
+          <div class="error-message" id="error-reset-new-password"></div>
+        </div>
+        <div class="form-group mb-3">
+          <input
+            id="reset-confirm-password"
+            type="password"
+            placeholder="Confirm new password"
+            class="form-control"
+          />
+          <div class="error-message" id="error-reset-confirm-password"></div>
+        </div>
+        <div class="error-message" id="error-reset-general"></div>
+        <button
+          class="boxed-btn"
+          style="width: 100%; margin-top: 10px"
+          onclick="resetPassword();"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
