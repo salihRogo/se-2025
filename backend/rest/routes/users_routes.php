@@ -7,13 +7,33 @@ Flight::route('POST /users', function () {
     $data = Flight::request()->data->getData();
 
     // Validate required fields
-    if (!isset($data['full_name']) || !isset($data['email']) || !isset($data['password']) || !isset($data['password_confirm'])) {
-        Flight::halt(400, 'Full name, email, password, and confirm password are required');
+    if (!isset($data['full_name']) || !isset($data['email']) || !isset($data['password']) || !isset($data['password_confirm']) || !isset($data['phone_number'])) {
+        Flight::json(["message" => "All fields are required."], 400);
+        return;
+    }
+
+    // Email validation
+    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+        Flight::json(["message" => "Invalid email address."], 400);
+        return;
+    }
+
+    // Password length validation
+    if (strlen($data['password']) < 8) {
+        Flight::json(["message" => "Password must be at least 8 characters."], 400);
+        return;
     }
 
     // Check if passwords match
     if ($data['password'] !== $data['password_confirm']) {
-        Flight::halt(400, 'Password and confirm password do not match');
+        Flight::json(["message" => "Password and confirm password do not match."], 400);
+        return;
+    }
+
+    // Phone number validation (at least 8 digits, only numbers)
+    if (!preg_match('/^\d{8,}$/', $data['phone_number'])) {
+        Flight::json(["message" => "Please enter a valid phone number."], 400);
+        return;
     }
 
     // Hash the password and remove the confirm password field
@@ -22,7 +42,13 @@ Flight::route('POST /users', function () {
 
     // Add the user
     $user = Flight::usersService()->add_user($data);
-    Flight::json($user);
+    if (array_key_exists("success", $user)) {
+        if ($user["success"] == false) {
+            Flight::json(["message" => "Email already registered."], 400);
+            return;
+        }
+    }
+    return Flight::json($user);
 });
 
 // Get a user by ID

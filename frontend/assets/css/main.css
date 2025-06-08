@@ -2960,7 +2960,6 @@ button.cart-btn:active {
   font-weight: 700;
 }
 
-
 /* Coupon page headings */
 .loyalty-title {
   color: #000;
@@ -3013,7 +3012,7 @@ button.cart-btn:active {
   border: 2.5px dashed #b288ec;
   border-radius: 18px;
   background: #fff;
-  box-shadow: 0 2px 10px rgba(178,136,236,0.10);
+  box-shadow: 0 2px 10px rgba(178, 136, 236, 0.1);
   padding: 36px 28px 24px 28px;
   position: relative;
   max-width: 420px;
@@ -3120,4 +3119,12 @@ button.cart-btn:active {
   font-size: 1.1rem;
   padding-left: 0;
   list-style: disc inside;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 0.95em;
+  margin-top: 2px;
+  min-height: 18px;
+  text-align: left;
 }
