@@ -11,6 +11,25 @@
   </div>
 </div>
 
+<!-- Add Shop Button -->
+<div class="container">
+  <div class="row">
+    <div
+      class="col-lg-3 d-flex align-items-center mb-4"
+      style="margin-top: 32px"
+    >
+      <button
+        class="btn btn-primary"
+        style="font-size: 1.1rem; padding: 10px 28px"
+        onclick="openAddEShopModal();"
+      >
+        <i class="fas fa-calendar-plus"></i> Add Shop
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
 <div id="admin-shops-container" class="container mt-100 mb-100"></div>
 
 <!-- Shop Edit Modal -->
@@ -106,6 +125,121 @@
     </div>
   </div>
 </div>
+
+<!-- Add Shop Modal -->
+<div
+  class="modal fade"
+  id="addShopModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addShopModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addShopModalLabel">Add Shop</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          onclick="$('#addShopModal').modal('hide')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addShopForm">
+          <div class="form-group">
+            <label for="addShopName">Shop Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="addShopName"
+              placeholder="Enter shop name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="addAddress">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="addAddress"
+              placeholder="Enter address"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="addCity">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="addCity"
+              placeholder="Enter city"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="addContactNumber">Contact Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="addContactNumber"
+              placeholder="Enter contact number"
+            />
+          </div>
+          <div class="form-group">
+            <label for="addOpensAt">Opens At</label>
+            <input type="time" class="form-control" id="addOpensAt" required />
+          </div>
+          <div class="form-group">
+            <label for="addClosesAt">Closes At</label>
+            <input type="time" class="form-control" id="addClosesAt" required />
+          </div>
+          <div class="form-group">
+            <label for="addDescription">Description</label>
+            <textarea
+              class="form-control"
+              id="addDescription"
+              rows="3"
+              placeholder="Enter description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="addShopImage">Shop Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="addShopImage"
+              accept="image/*"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="submitAddShop()">
+          Add Shop
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          onclick="$('#addShopModal').modal('hide')"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openAddEShopModal() {
+    $("#addShopModal").modal("show");
+  }
+</script>
 
 <style>
   .user-profile-table {
@@ -267,4 +401,57 @@
         AdminManageShops.fetch_all_shops();
       });
     });
+</script>
+
+<script>
+  document.getElementById("addShopForm").onsubmit = function (e) {
+    e.preventDefault();
+
+    // Create FormData object for the file upload
+    const formData = new FormData();
+
+    // Add the image file
+    const imageFile = document.getElementById("addShopImage").files[0];
+    if (!imageFile) {
+      toastr.error("Please select an image file");
+      return;
+    }
+
+    formData.append("shopImage", imageFile);
+
+    // First upload the image file
+    fetch("/se-2025/backend/api/upload/shop-image/", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Failed to upload image");
+        return response.json();
+      })
+      .then((fileData) => {
+        // Now create the shop with the image filename
+        const shopData = {
+          name: document.getElementById("addShopName").value,
+          address: document.getElementById("addAddress").value,
+          city: document.getElementById("addCity").value,
+          contact_number: document.getElementById("addContactNumber").value,
+          opens_at: document.getElementById("addOpensAt").value,
+          closes_at: document.getElementById("addClosesAt").value,
+          description: document.getElementById("addDescription").value,
+          image_url: "assets/img/" + fileData.filename,
+        };
+
+        // Create the shop with the image filename
+        RestClient.post("admin/shops", shopData, function () {
+          $("#addShopModal").modal("hide");
+          toastr.success("Shop added successfully");
+          AdminManageShops.fetch_all_shops();
+          document.getElementById("addShopForm").reset();
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        toastr.error("Failed to add shop: " + (err.message || "Unknown error"));
+      });
+  };
 </script>
