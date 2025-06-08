@@ -23,29 +23,100 @@ function display_shops_on_home() {
   });
 }
 
+// Store all shops data for filtering
+let allShopsData = [];
+
 function display_all_shops() {
   RestClient.get("shops", function (data) {
-    const shopsContainer = document.getElementById("shops-container");
-    shopsContainer.innerHTML = "";
-
-    data.forEach((shop) => {
-      const shopDiv = document.createElement("div");
-      shopDiv.className = "col-lg-4 col-md-6 text-center";
-      shopDiv.innerHTML = `
-                <div class="single-product-item">
-                    <div class="shop-image" style="margin-bottom: 30px;">
-                        <a href="javascript:void(0);" onclick="display_single_shop(${shop.id})"
-                            ><img src="${shop.image_url}" alt=""
-                        /></a>
-                    </div>
-                    <h3>${shop.city}</h3>
-                    <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
-                    <a href="javascript:void(0);" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
-                </div>
-            `;
-      shopsContainer.appendChild(shopDiv);
-    });
+    allShopsData = data; // Store data for search/filter
+    renderShops(data);
   });
+}
+
+function renderShops(shops) {
+  const shopsContainer = document.getElementById("shops-container");
+  const noResults = document.getElementById("no-results");
+  
+  shopsContainer.innerHTML = "";
+
+  if (shops.length === 0) {
+    noResults.style.display = "block";
+    return;
+  } else {
+    noResults.style.display = "none";
+  }
+
+  shops.forEach((shop) => {
+    const shopDiv = document.createElement("div");
+    shopDiv.className = "col-lg-4 col-md-6 text-center";
+    shopDiv.setAttribute("data-city", shop.city);
+    shopDiv.setAttribute("data-name", shop.name.toLowerCase());
+    shopDiv.setAttribute("data-address", shop.address.toLowerCase());
+    shopDiv.innerHTML = `
+      <div class="single-product-item">
+        <div class="shop-image" style="margin-bottom: 30px;">
+          <a href="javascript:void(0);" onclick="display_single_shop(${shop.id})">
+            <img src="${shop.image_url}" alt="" />
+          </a>
+        </div>
+        <h3>${shop.city}</h3>
+        <p class="product-price"><span>${shop.address}</span>${shop.name}</p>
+        <a href="javascript:void(0);" class="cart-btn" onclick="display_single_shop(${shop.id})">See more</a>
+      </div>
+    `;
+    shopsContainer.appendChild(shopDiv);
+  });
+}
+
+function searchShops() {
+  const searchTerm = document.getElementById('shop-search').value.toLowerCase().trim();
+  
+  if (searchTerm === '') {
+    // If search is empty, show all shops
+    renderShops(allShopsData);
+    return;
+  }
+
+  // Filter shops based on search term
+  const filteredShops = allShopsData.filter(shop => {
+    return shop.name.toLowerCase().includes(searchTerm) ||
+           shop.city.toLowerCase().includes(searchTerm) ||
+           shop.address.toLowerCase().includes(searchTerm) ||
+           (shop.description && shop.description.toLowerCase().includes(searchTerm));
+  });
+
+  renderShops(filteredShops);
+  
+  // Clear any active filter buttons since we're now in search mode
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  filterButtons.forEach(btn => btn.classList.remove('active'));
+}
+
+function clearSearch() {
+  document.getElementById('shop-search').value = '';
+  renderShops(allShopsData);
+}
+
+function filterShops(city) {
+  // Clear search when filtering
+  document.getElementById('shop-search').value = '';
+  
+  const buttons = document.querySelectorAll(".filter-btn");
+  buttons.forEach((button) => button.classList.remove("active"));
+
+  if (city) {
+    const activeButton = Array.from(buttons).find(
+      (btn) => btn.textContent === city
+    );
+    if (activeButton) activeButton.classList.add("active");
+    
+    // Filter from original data
+    const filteredShops = allShopsData.filter(shop => shop.city === city);
+    renderShops(filteredShops);
+  } else {
+    // Show all shops
+    renderShops(allShopsData);
+  }
 }
 
 function display_single_shop(shop_id) {
@@ -146,32 +217,6 @@ function display_single_shop(shop_id) {
       </div>
     `;
     loadShopReviews(shop_id);
-  });
-}
-
-function filterShops(city) {
-  const buttons = document.querySelectorAll(".filter-btn");
-  buttons.forEach((button) => button.classList.remove("active"));
-
-  if (city) {
-    const activeButton = Array.from(buttons).find(
-      (btn) => btn.textContent === city
-    );
-    if (activeButton) activeButton.classList.add("active");
-  }
-
-  const shopsContainer = document.getElementById("shops-container");
-  const allShops = shopsContainer.querySelectorAll(".single-product-item");
-
-  allShops.forEach((shop) => {
-    const shopCity =
-      shop.getAttribute("data-city") ||
-      shop.querySelector("h3").textContent.trim();
-    if (!city || shopCity === city) {
-      shop.style.display = "block";
-    } else {
-      shop.style.display = "none";
-    }
   });
 }
 
