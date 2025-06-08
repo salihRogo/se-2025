@@ -1,20 +1,42 @@
 function register_user() {
-  FormValidation.validate("register-form", {}, function (data) {
-    Utils.block_ui("register-button");
-    RestClient.post(
-      "users",
-      data,
-      function (response) {
-        Utils.unblock_ui("register-button");
-        toastr.success("user registered succesfully");
-        document.getElementById("register-form").reset();
-        window.location.hash = "#login";
+  FormValidation.validate(
+    "register-form",
+    {
+      full_name: {
+        required: true,
+        minlength: 3,
       },
-      function (error) {
-        toastr.error("error");
-      }
-    );
-  });
+      email: {
+        required: true,
+        email: true,
+      },
+      password: {
+        required: true,
+        minlength: 8,
+      },
+      password_confirm: {
+        required: true,
+        minlength: 8,
+      },
+      phone_number: {
+        required: true,
+        minlength: 8,
+      },
+    },
+    function (data) {
+      Utils.block_ui("register-button");
+      RestClient.post(
+        "users",
+        data,
+        function (response) {
+          Utils.unblock_ui("register-button");
+          toastr.success("User registered succesfully");
+          document.getElementById("register-form").reset();
+          window.location.hash = "#login";
+        },
+      );
+    }
+  );
 }
 
 function login_user() {
@@ -111,7 +133,6 @@ function load_user_profile() {
   }
 
   RestClient.get("user/" + user_id, function (data) {
-
     document.getElementById("profile-full-name").textContent =
       data.full_name || "Full Name";
     document.getElementById("profile-email").textContent =
