@@ -52,8 +52,8 @@ var AdminManageUsers = {
             </td>
           </tr>
           <tr>
-            <th class="label-cell">Full Name</th>
-            <td class="value-cell editable" data-field="full_name">
+            <th class="label-cell">Loyalty Points</th>
+            <td class="value-cell editable" data-field="loyalty_points">
               <span class="display-mode">${user.loyalty_points}</span>
             </td>
           </tr>

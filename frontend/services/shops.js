@@ -49,6 +49,16 @@ function display_all_shops() {
 }
 
 function display_single_shop(shop_id) {
+  if (shop_id === null) {
+    shop_id = localStorage.getItem("shop_id");
+  }
+
+
+  if (localStorage.getItem("shop_id") !== shop_id || localStorage.getItem("shop_id") == null) {
+    window.localStorage.setItem("shop_id", shop_id);
+  }
+
+  localStorage.setItem("shop_id", shop_id);
   window.location.hash = "#single-shop-view";
   RestClient.get("shops/" + shop_id, function (data) {
     shop = data[0];

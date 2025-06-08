@@ -5,4 +5,12 @@ var app = $.spapp({
   reloadView: true,
 });
 
+app.route({
+  view: "single-shop-view",
+  load: "single-shop.html",
+  onReady: function() {
+    display_single_shop(shop_id = null);
+  }
+});
+
 app.run();

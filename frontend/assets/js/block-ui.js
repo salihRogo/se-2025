@@ -1,10 +1,10 @@
 /*! For license information please see block-ui.js.LICENSE.txt */
 !(function (e, t) {
   if ("object" == typeof exports && "object" == typeof module)
-    module.exports = t(require("jQuery"));
+    module.exports = t(require("jquery"));
   else if ("function" == typeof define && define.amd) define(["jQuery"], t);
   else {
-    var o = "object" == typeof exports ? t(require("jQuery")) : t(e.jQuery);
+    var o = "object" == typeof exports ? t(require("jquery")) : t(e.jQuery);
     for (var n in o) ("object" == typeof exports ? exports : e)[n] = o[n];
   }
 })(self, function (e) {
