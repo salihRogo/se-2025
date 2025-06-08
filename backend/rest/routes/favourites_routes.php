@@ -3,8 +3,13 @@
 require_once __DIR__ . '/../services/FavouritesService.class.php';
 
 Flight::route('POST /favourite', function () {
-    $favourites = Flight::request()->data->getData();
-    $result = Flight::favouritesService()->add_favourites($favourites);
+    try {
+        $favourites = Flight::request()->data->getData();
+        $result = Flight::favouritesService()->add_favourites($favourites);
+        Flight::json(["message" => "Shop added to favourites successfully."]);
+    } catch (Exception $e) {
+        Flight::json(["message" => $e->getMessage()], 400);
+    }
 });
 
 Flight::route('GET /favourites/@user_id', function ($user_id) {

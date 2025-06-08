@@ -11,14 +11,18 @@ class FavouritesDao extends BaseDao
 
     public function add_favourites($favourites)
     {
-        $query = "INSERT INTO favourite_shops (user_id, shop_id) 
-              VALUES (:user_id, :shop_id)";
-
+        $query = "SELECT COUNT(*) as cnt FROM favourite_shops WHERE user_id = :user_id AND shop_id = :shop_id";
         $params = [
             "user_id" => $favourites["user_id"],
             "shop_id" => $favourites["shop_id"]
         ];
+        $result = $this->query_unique($query, $params);
 
+        if ($result && $result['cnt'] > 0) {
+            throw new Exception("Shop is already in your favourites.");
+        }
+
+        $query = "INSERT INTO favourite_shops (user_id, shop_id) VALUES (:user_id, :shop_id)";
         return $this->query($query, $params);
     }
 
