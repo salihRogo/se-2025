@@ -25,16 +25,12 @@ function register_user() {
     },
     function (data) {
       Utils.block_ui("register-button");
-      RestClient.post(
-        "users",
-        data,
-        function (response) {
-          Utils.unblock_ui("register-button");
-          toastr.success("User registered succesfully");
-          document.getElementById("register-form").reset();
-          window.location.hash = "#login";
-        },
-      );
+      RestClient.post("users", data, function (response) {
+        Utils.unblock_ui("register-button");
+        toastr.success("User registered succesfully");
+        document.getElementById("register-form").reset();
+        window.location.hash = "#login";
+      });
     }
   );
 }
@@ -234,4 +230,64 @@ if (window.location.hash === "#register") {
 }
 function load_register_page() {
   console.log("Navigating to the signup page...");
+}
+
+function showResetPasswordModal() {
+  document.getElementById("resetPasswordModal").classList.add("show");
+  clearResetPasswordErrors();
+}
+function closeResetPasswordModal() {
+  document.getElementById("resetPasswordModal").classList.remove("show");
+}
+
+// Clear error messages in the modal
+function clearResetPasswordErrors() {
+  ["new-password", "confirm-password", "general"].forEach(function (field) {
+    const el = document.getElementById("error-reset-" + field);
+    if (el) el.textContent = "";
+  });
+}
+
+function resetPassword() {
+  clearResetPasswordErrors();
+  const newPass = document.getElementById("reset-new-password").value;
+  const confirmPass = document.getElementById("reset-confirm-password").value;
+  let hasError = false;
+
+  if (!newPass || newPass.length < 8) {
+    document.getElementById("error-reset-new-password").textContent =
+      "New password must be at least 8 characters.";
+    hasError = true;
+  }
+  if (newPass !== confirmPass) {
+    document.getElementById("error-reset-confirm-password").textContent =
+      "Passwords do not match.";
+    hasError = true;
+  }
+  if (hasError) return;
+  const userId = localStorage.getItem("user_id");
+  RestClient.put(
+    `user/${userId}/password`,
+    {
+      new_password: newPass,
+    },
+    function (response) {
+      closeResetPasswordModal();
+      toastr.success("Password changed successfully!");
+    },
+    function (error) {
+      if (error && error.message) {
+        if (error.message.includes("New password")) {
+          document.getElementById("error-reset-new-password").textContent =
+            error.message;
+        } else {
+          document.getElementById("error-reset-general").textContent =
+            error.message;
+        }
+      } else {
+        document.getElementById("error-reset-general").textContent =
+          "Error resetting password.";
+      }
+    }
+  );
 }

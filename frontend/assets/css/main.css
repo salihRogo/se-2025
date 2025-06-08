@@ -3128,3 +3128,104 @@ button.cart-btn:active {
   min-height: 18px;
   text-align: left;
 }
+/* Modal Overlay */
+.custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45); /* darker overlay */
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.custom-modal.show {
+  display: flex;
+}
+
+/* Modal Dialog */
+.custom-modal-dialog {
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* Modal Content */
+.custom-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  animation: fadeInModal 0.25s;
+}
+
+/* Modal Header */
+.custom-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+.custom-modal-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #222;
+}
+.custom-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+.custom-modal-close:hover {
+  color: #b288ec;
+}
+
+/* Modal Body */
+.custom-modal-body {
+  padding: 28px 28px 20px 28px;
+  background: #fff;
+  flex: 1 1 auto;
+}
+
+/* Modal Footer (optional, if you want to add) */
+.custom-modal-footer {
+  padding: 16px 28px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .custom-modal-dialog {
+    max-width: 98vw;
+  }
+  .custom-modal-content,
+  .custom-modal-header,
+  .custom-modal-body,
+  .custom-modal-footer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInModal {
+  from { opacity: 0; transform: translateY(-30px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
