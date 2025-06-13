@@ -59,11 +59,10 @@ function login_user() {
 
         Utils.unblock_ui("login-button");
         toastr.success("You logged in successfully");
-        window.location.hash = "#home";
 
         check_user_presence();
 
-        if (response.role === "admin") {
+        if (response.data.role === "admin") {
           window.location.hash = "#admin-dashboard";
           window.location.reload();
         } else {
