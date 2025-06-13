@@ -11,10 +11,7 @@ class ShopsDao extends BaseDao
 
     public function get_all_shops()
     {
-        $query = "SELECT *
-                    FROM shops s";
-        $params = [];
-        return $this->query($query, $params);
+        return $this->get_all();
     }
 
     public function get_shops_for_home()
@@ -33,9 +30,7 @@ class ShopsDao extends BaseDao
 
     public function get_shop_by_id($shop_id)
     {
-        $query = "SELECT * FROM shops WHERE id = :shop_id";
-        $params = ["shop_id" => $shop_id];
-        return $this->query($query, $params);
+        return $this->get_by_id($shop_id);
     }
 
     public function add_shop($shop)
