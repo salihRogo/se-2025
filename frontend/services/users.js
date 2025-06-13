@@ -30,6 +30,8 @@ function register_user() {
         toastr.success("User registered succesfully");
         document.getElementById("register-form").reset();
         window.location.hash = "#login";
+      }, function(error) {
+        toastr.error(error.error);
       });
     }
   );
