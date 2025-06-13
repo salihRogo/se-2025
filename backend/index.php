@@ -45,7 +45,7 @@ Flight::route('/*', function () {
         return TRUE;
     }
     if (preg_match('#^/admin/#', $req_url)) {
-        $user = Flight::authService()->get_current_user();
+        $user = Flight::auth_service()->get_current_user();
         if (!$user || $user['role'] !== Roles::ADMIN) {
             Flight::halt(403, "Access denied");
         }

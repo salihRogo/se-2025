@@ -35,7 +35,7 @@ Flight::route('PUT /user/@id/password', function ($id) {
         return;
     }
 
-    $update_data = ["password" => password_hash($data['new_password'], PASSWORD_DEFAULT)];
+    $update_data = ["password" => password_hash($data['new_password'], PASSWORD_BCRYPT)];
     Flight::usersService()->update_user($id, $update_data);
 
     Flight::json(["message" => "Password updated successfully."]);

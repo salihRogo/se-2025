@@ -2,7 +2,7 @@
 
 Flight::route('GET /admin/shop/reservations/@shop_id', function ($shop_id) {
     // Ensure the user is an admin
-    $user = Flight::authService()->get_current_user();
+    $user = Flight::auth_service()->get_current_user();
     if ($user['role'] !== 'admin') {
         Flight::halt(403, "Access denied");
     }

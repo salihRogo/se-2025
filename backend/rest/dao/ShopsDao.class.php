@@ -65,6 +65,6 @@ class ShopsDao extends BaseDao
 
     public function update_shop($id, $shops)
     {
-        return $this->update($shops, $id, "id");
+        return $this->update($shops, $id);
     }
 }

@@ -2,7 +2,7 @@
 
 Flight::route('GET /admin/shops', function () {
     // Ensure the user is an admin
-    $user = Flight::authService()->get_current_user();
+    $user = Flight::auth_service()->get_current_user();
     if ($user['role'] !== 'admin') {
         Flight::halt(403, "Access denied");
     }
@@ -13,7 +13,7 @@ Flight::route('GET /admin/shops', function () {
 });
 
 Flight::route('DELETE /admin/shops/@id', function ($id) {
-    $user = Flight::authService()->get_current_user();
+    $user = Flight::auth_service()->get_current_user();
     if ($user['role'] !== 'admin') {
         Flight::halt(403, "Access denied");
     }
@@ -29,7 +29,7 @@ Flight::route('DELETE /admin/shops/@id', function ($id) {
 });
 
 Flight::route('PUT /admin/shops/@id', function ($id) {
-    $user = Flight::authService()->get_current_user();
+    $user = Flight::auth_service()->get_current_user();
     if ($user['role'] !== 'admin') {
         Flight::halt(403, "Access denied");
     }
@@ -46,7 +46,7 @@ Flight::route('PUT /admin/shops/@id', function ($id) {
 });
 
 Flight::route('POST /admin/shops', function () {
-    $user = Flight::authService()->get_current_user();
+    $user = Flight::auth_service()->get_current_user();
     if ($user['role'] !== 'admin') {
         Flight::halt(403, "Access denied");
     }

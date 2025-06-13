@@ -24,7 +24,7 @@ class UsersDao extends BaseDao
 
     public function update_user($id, $user)
     {
-        return $this->update($id, $user);
+        return $this->update($user, $id);
     }
 
     public function delete_user($id)

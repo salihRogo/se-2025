@@ -30,7 +30,7 @@ function register_user() {
         data,
         function (response) {
           Utils.unblock_ui("register-button");
-          toastr.success("User registered succesfully");
+          toastr.success(response.message);
           document.getElementById("register-form").reset();
           window.location.hash = "#login";
         },
@@ -71,8 +71,10 @@ function login_user() {
           window.location.reload();
         }
       },
-      function (error) {
-        toastr.error("Error occurred while logging into your account");
+      function (XMLHttpRequest) {
+        toastr.error(
+          XMLHttpRequest?.responseText ? XMLHttpRequest.responseText : "Error"
+        );
       }
     );
   });
@@ -220,27 +222,10 @@ function check_user_presence() {
 window.addEventListener("hashchange", function () {
   if (window.location.hash === "#login") {
     load_login_page();
-  }
-});
-if (window.location.hash === "#login") {
-  load_login_page();
-}
-function load_login_page() {
-  console.log("Navigating to the login page...");
-}
-
-window.addEventListener("hashchange", function () {
-  if (window.location.hash === "#register") {
+  } else if (this.window.location.hash === "#register") {
     load_register_page();
   }
 });
-// lkaallalaala
-if (window.location.hash === "#register") {
-  load_register_page();
-}
-function load_register_page() {
-  console.log("Navigating to the signup page...");
-}
 
 function showResetPasswordModal() {
   document.getElementById("resetPasswordModal").classList.add("show");
