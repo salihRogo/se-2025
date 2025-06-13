@@ -23,7 +23,7 @@ class BaseService
 
     public function create($data)
     {
-        return $this->dao->insert($data);
+        return $this->dao->add($data);
     }
 
     public function update($id, $data)

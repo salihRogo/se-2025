@@ -25,7 +25,7 @@ function register_user() {
     },
     function (data) {
       Utils.block_ui("register-button");
-      RestClient.post("users", data, function (response) {
+      RestClient.post("register", data, function (response) {
         Utils.unblock_ui("register-button");
         toastr.success("User registered succesfully");
         document.getElementById("register-form").reset();

@@ -6,40 +6,32 @@ require_once __DIR__ . '/../services/AuthService.class.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+Flight::route("POST /register", function () {
+    $data = Flight::request()->data->getData();
+
+    $response = Flight::auth_service()->register($data);
+
+    if ($response['success']) {
+        Flight::json([
+            'message' => 'User registered successfully',
+            'data' => $response['data']
+        ]);
+    } else {
+        Flight::halt(500, $response['error']);
+    }
+});
+
 Flight::route('POST /login', function () {
-    $payload = Flight::request()->data->getData();
+    $data = Flight::request()->data->getData();
 
-    // Validate input
-    if (empty($payload['email']) || empty($payload['password'])) {
-        Flight::halt(400, "Email and password are required");
+    $response = Flight::auth_service()->login($data);
+
+    if ($response['success']) {
+        Flight::json([
+            'message' => 'User logged in successfully',
+            'data' => $response['data']
+        ]);
+    } else {
+        Flight::halt(500, $response['error']);
     }
-
-    // Authenticate user
-    $user = Flight::authService()->get_user_by_email($payload['email']);
-
-    if (!$user || !password_verify($payload['password'], $user['password'])) {
-        Flight::halt(401, "Invalid username or password");
-    }
-
-    // Remove sensitive data (e.g., password)
-    unset($user['password']);
-
-    // Prepare JWT payload
-    $jwt_payload = [
-        'user' => $user,
-        'iat' => time(),
-        'exp' => time() + (60 * 60 * 24) // Valid for 1 day
-    ];
-
-    // Generate JWT token
-    $token = JWT::encode(
-        $jwt_payload,
-        Config::JWT_SECRET(),
-        'HS256'
-    );
-
-    // Return user data with the token
-    Flight::json(
-        array_merge($user, ['token' => $token])
-    );
 });
