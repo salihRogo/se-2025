@@ -14,12 +14,12 @@ class UsersDao extends BaseDao
 
     public function get_users()
     {
-        return $this->getAll();
+        return $this->get_all();
     }
 
     public function get_user_by_id($id)
     {
-        return $this->getById($id);
+        return $this->get_by_id($id);
     }
 
     public function update_user($id, $user)

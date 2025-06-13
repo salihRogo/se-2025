@@ -25,14 +25,22 @@ function register_user() {
     },
     function (data) {
       Utils.block_ui("register-button");
-      RestClient.post("register", data, function (response) {
-        Utils.unblock_ui("register-button");
-        toastr.success("User registered succesfully");
-        document.getElementById("register-form").reset();
-        window.location.hash = "#login";
-      }, function(error) {
-        toastr.error(error.error);
-      });
+      RestClient.post(
+        "register",
+        data,
+        function (response) {
+          Utils.unblock_ui("register-button");
+          toastr.success("User registered succesfully");
+          document.getElementById("register-form").reset();
+          window.location.hash = "#login";
+        },
+        function (XMLHttpRequest) {
+          Utils.unblock_ui("register-button");
+          toastr.error(
+            XMLHttpRequest?.responseText ? XMLHttpRequest.responseText : "Error"
+          );
+        }
+      );
     }
   );
 }
@@ -45,9 +53,9 @@ function login_user() {
       "login",
       data,
       function (response) {
-        window.localStorage.setItem("token", response.token);
-        window.localStorage.setItem("user_id", response.id);
-        window.localStorage.setItem("role", response.role);
+        window.localStorage.setItem("token", response.data.token);
+        window.localStorage.setItem("user_id", response.data.id);
+        window.localStorage.setItem("role", response.data.role);
 
         Utils.unblock_ui("login-button");
         toastr.success("You logged in successfully");
