@@ -36,7 +36,7 @@ function display_all_shops() {
 function renderShops(shops) {
   const shopsContainer = document.getElementById("shops-container");
   const noResults = document.getElementById("no-results");
-  
+
   shopsContainer.innerHTML = "";
 
   if (shops.length === 0) {
@@ -69,38 +69,43 @@ function renderShops(shops) {
 }
 
 function searchShops() {
-  const searchTerm = document.getElementById('shop-search').value.toLowerCase().trim();
-  
-  if (searchTerm === '') {
+  const searchTerm = document
+    .getElementById("shop-search")
+    .value.toLowerCase()
+    .trim();
+
+  if (searchTerm === "") {
     // If search is empty, show all shops
     renderShops(allShopsData);
     return;
   }
 
   // Filter shops based on search term
-  const filteredShops = allShopsData.filter(shop => {
-    return shop.name.toLowerCase().includes(searchTerm) ||
-           shop.city.toLowerCase().includes(searchTerm) ||
-           shop.address.toLowerCase().includes(searchTerm) ||
-           (shop.description && shop.description.toLowerCase().includes(searchTerm));
+  const filteredShops = allShopsData.filter((shop) => {
+    return (
+      shop.name.toLowerCase().includes(searchTerm) ||
+      shop.city.toLowerCase().includes(searchTerm) ||
+      shop.address.toLowerCase().includes(searchTerm) ||
+      (shop.description && shop.description.toLowerCase().includes(searchTerm))
+    );
   });
 
   renderShops(filteredShops);
-  
+
   // Clear any active filter buttons since we're now in search mode
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  filterButtons.forEach(btn => btn.classList.remove('active'));
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  filterButtons.forEach((btn) => btn.classList.remove("active"));
 }
 
 function clearSearch() {
-  document.getElementById('shop-search').value = '';
+  document.getElementById("shop-search").value = "";
   renderShops(allShopsData);
 }
 
 function filterShops(city) {
   // Clear search when filtering
-  document.getElementById('shop-search').value = '';
-  
+  document.getElementById("shop-search").value = "";
+
   const buttons = document.querySelectorAll(".filter-btn");
   buttons.forEach((button) => button.classList.remove("active"));
 
@@ -109,9 +114,9 @@ function filterShops(city) {
       (btn) => btn.textContent === city
     );
     if (activeButton) activeButton.classList.add("active");
-    
+
     // Filter from original data
-    const filteredShops = allShopsData.filter(shop => shop.city === city);
+    const filteredShops = allShopsData.filter((shop) => shop.city === city);
     renderShops(filteredShops);
   } else {
     // Show all shops
@@ -124,14 +129,17 @@ function display_single_shop(shop_id) {
     shop_id = localStorage.getItem("shop_id");
   }
 
-  if (localStorage.getItem("shop_id") !== shop_id || localStorage.getItem("shop_id") === null) {
+  if (
+    localStorage.getItem("shop_id") !== shop_id ||
+    localStorage.getItem("shop_id") === null
+  ) {
     window.localStorage.setItem("shop_id", shop_id);
   }
 
   localStorage.setItem("shop_id", shop_id);
   window.location.hash = "#single-shop-view";
   RestClient.get("shops/" + shop_id, function (data) {
-    shop = data[0];
+    shop = data;
     const singleShop = document.getElementById("single-shop-div");
     singleShop.innerHTML = `
       <div class="container">
