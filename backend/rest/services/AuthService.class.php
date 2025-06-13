@@ -46,6 +46,12 @@ class AuthService extends BaseService
             return ['success' => false, 'error' => 'Email already registered.'];
         }
 
+        if ($entity['password'] != $entity['password_confirm']) {
+            return ['success' => false, 'error' => 'Password and repeated password must be same.'];
+        }
+
+        unset($entity['password_confirm']);
+
         $entity['password'] = password_hash($entity['password'], PASSWORD_BCRYPT);
 
         $entity = parent::create($entity);
