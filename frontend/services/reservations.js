@@ -47,7 +47,7 @@ function confirmReservation(shop_id) {
   }
 
   RestClient.get("shops/" + shop_id, function (data2) {
-    const shop = data2[0];
+    const shop = data2;
     // Convert time strings to comparable format (minutes from midnight)
     function timeToMinutes(timeStr) {
       const [hours, minutes] = timeStr.split(":");
