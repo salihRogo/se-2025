@@ -92,7 +92,9 @@ var AdminManageReservations = {
           `reservations/${reservation.id}`,
           reservation.id,
           function () {
-            AdminManageReservations.fetch_shop_reservations(reservation.shop_id);
+            AdminManageReservations.fetch_shop_reservations(
+              reservation.shop_id
+            );
           }
         );
       }
@@ -107,11 +109,13 @@ var AdminManageReservations = {
           `admin/reservation/status/${reservation.id}`,
           reservation,
           function () {
-            increaseUsersLoyaltyPoints(
+            AdminManageReservations.increaseUsersLoyaltyPoints(
               reservation.user_id,
               reservation.shop_id
             );
-            checkUsersLoyaltyPoints(reservation.user_id);
+            AdminManageReservations.checkUsersLoyaltyPoints(
+              reservation.user_id
+            );
           }
         );
       }
@@ -130,37 +134,36 @@ var AdminManageReservations = {
       }
     });
   },
-};
 
+  increaseUsersLoyaltyPoints(user_id, shop_id) {
+    RestClient.get(`user/${user_id}`, function (user) {
+      user.loyalty_points = user.loyalty_points + 1;
 
-increaseUsersLoyaltyPoints = function (user_id, shop_id) {
-  RestClient.get(`user/${user_id}`, function (user) {
-    user.loyalty_points = user.loyalty_points + 1;
+      RestClient.put(`user/${user.id}`, user, function () {
+        AdminManageReservations.fetch_shop_reservations(shop_id);
+      });
 
-    RestClient.put(`user/${user.id}`, user, function () {
-      AdminManageReservations.fetch_shop_reservations(shop_id);
+      const data = {
+        user_id: user_id,
+      };
+
+      if (user.loyalty_points === 10) {
+        RestClient.post("coupons/user", data, function () {
+          user.loyalty_points = 0;
+          RestClient.put(`user/${user.id}`, user, function () {});
+        });
+      }
     });
+  },
 
-    const data = {
-      user_id: user_id,
-    };
-
-    if (user.loyalty_points === 10) {
-      RestClient.post("coupons/user", data, function () {
-        user.loyalty_points = 0;
-        RestClient.put(`user/${user.id}`, user, function () {});
-      });
-    }
-  });
-};
-
-checkUsersLoyaltyPoints = function (user_id) {
-  RestClient.get(`user/${user_id}`, function (user) {
-    if (user.loyalty_points === 10) {
-      RestClient.post("coupons/user", user.id, function () {
-        user.loyalty_points = 0;
-        RestClient.put(`user/${user.id}`, user, function () {});
-      });
-    }
-  });
+  checkUsersLoyaltyPoints(user_id) {
+    RestClient.get(`user/${user_id}`, function (user) {
+      if (user.loyalty_points === 10) {
+        RestClient.post("coupons/user", user.id, function () {
+          user.loyalty_points = 0;
+          RestClient.put(`user/${user.id}`, user, function () {});
+        });
+      }
+    });
+  },
 };
