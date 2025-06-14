@@ -84,7 +84,54 @@ var AdminManageReservations = {
       }
     );
   },
+  deleteReservation(reservation_id) {
+    alert("Are you sure that you want to delete this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Cancelled") {
+        RestClient.delete(
+          `reservations/${reservation.id}`,
+          reservation.id,
+          function () {
+            AdminManageReservations.fetch_shop_reservations(reservation.shop_id);
+          }
+        );
+      }
+    });
+  },
+  approveReservation(reservation_id) {
+    alert("Are you sure that you want to approve this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Pending") {
+        reservation.status = "Confirmed";
+        RestClient.patch(
+          `admin/reservation/status/${reservation.id}`,
+          reservation,
+          function () {
+            increaseUsersLoyaltyPoints(
+              reservation.user_id,
+              reservation.shop_id
+            );
+            checkUsersLoyaltyPoints(reservation.user_id);
+          }
+        );
+      }
+    });
+  },
+  denyReservation(reservation_id) {
+    alert("Are you sure that you want to deny this reservation?");
+    RestClient.get("reservations/" + reservation_id, function (reservation) {
+      if (reservation.status === "Pending") {
+        reservation.status = "Cancelled";
+        RestClient.patch(
+          `admin/reservation/status/${reservation.id}`,
+          reservation,
+          function () {}
+        );
+      }
+    });
+  },
 };
+
 
 increaseUsersLoyaltyPoints = function (user_id, shop_id) {
   RestClient.get(`user/${user_id}`, function (user) {
