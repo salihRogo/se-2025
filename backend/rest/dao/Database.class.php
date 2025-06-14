@@ -10,7 +10,7 @@ class Database
     private static function loadConfig()
     {
         if (!isset(self::$host)) {
-            require_once __DIR__ . '/../../config.php';
+            require_once __DIR__ . '/../../config_loader.php';
             self::$host = Config::DB_HOST();
             self::$dbName = Config::DB_NAME();
             self::$username = Config::DB_USER();

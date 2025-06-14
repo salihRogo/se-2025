@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../../config_loader.php';
 require_once __DIR__ . '/../services/AuthService.class.php';
 
 use Firebase\JWT\JWT;

@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Redirect frontend requests to the frontend directory
+RewriteCond %{REQUEST_URI} !^/backend/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ frontend/$1 [L]
+
+# If the file doesn't exist in frontend, serve index.html (for SPA routing)
+RewriteCond %{REQUEST_URI} !^/backend/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ frontend/index.html [L]
+
+# API requests are handled by backend/.htaccess
