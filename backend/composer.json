@@ -1,4 +1,7 @@
 {
+    "name": "pastry-franchise/copy-n-pastries",
+    "description": "Pastry Shop Franchise",
+    "license": "proprietary",
     "require": {
         "php": "^7.4 || ^8.0",
         "flightphp/core": "^3.15",
