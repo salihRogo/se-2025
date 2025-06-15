@@ -1,59 +1,83 @@
-# Copy 'n' Pastries
+# Pastry Franchise Management System
 
-Copy 'n' Pastries is a franchise management system designed to streamline operations for
-a network of pastry shops. The system offers an e-commerce-like experience, enabling
-customers to reserve spots at specific shop locations, schedule pastry deliveries, or opt for
-in-store pickup.
+![Pastry Franchise Banner](frontend/assets/img/hero-bg.jpg)
 
-## Features
+## 🌐 Live Demo
 
-- **User Authentication** - Secure login and registration system
+The application is deployed and accessible at: [https://pastry-franchise-14e2c48eb32b.herokuapp.com/](https://pastry-franchise-14e2c48eb32b.herokuapp.com/)
 
-- **Pastry shop overview**
+## 📝 Project Description
 
-- **Reservations** - Booking a reservation at preferred time and shop
+The Pastry Franchise Management System is a comprehensive web application designed to streamline operations for a network of pastry shops. The system offers customers the ability to browse shops, make reservations, leave reviews, and save favorites. Shop owners can manage their shops, while administrators have full control over the platform.
 
-- **Reviews** - Adding reviews for shops
+## ✨ Features
 
-- **Admin dashboard** - admin can manage users
+- **User Authentication** - Secure JWT-based login and registration system
+- **Shop Browsing** - View all available pastry shops with details and locations
+- **Reservations** - Book a table at your favorite pastry shop for a specific date and time
+- **Reviews** - Leave and read reviews for each shop
+- **Favorites** - Save shops to your favorites list for quick access
+- **User Profiles** - Manage personal information and view your activity history
+- **Admin Dashboard** - Comprehensive management of users, shops, and system data
 
-## Getting started
+## 🛠️ Technology Stack
+
+### Backend
+- **PHP 7.4+/8.0+**
+- **FlightPHP** - Lightweight REST API framework
+- **MySQL** - Database
+- **JWT** - JSON Web Tokens for authentication
+- **Composer** - Dependency management
+- **PHPUnit** - Testing framework
+
+### Frontend
+- **HTML5/CSS3**
+- **JavaScript (Vanilla)** - No frontend framework dependencies
+- **Bootstrap** - Responsive design components
+
+### DevOps
+- **GitHub Actions** - CI/CD pipeline for automated testing
+- **Heroku** - Cloud platform hosting
+- **JawsDB MySQL** - Managed database service on Heroku
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- XAMPP or similar local server stack
-- PHP
+- XAMPP, MAMP, or similar local server stack
+- PHP 7.4 or higher
 - Composer
 - MySQL Server
+- Web Browser
 
-## Runing the project
+### Local Development Setup
 
-#### Backend
-
-1. **Clone the repository:**
-
-- Navigate to htdocs folder throught terminal and run the following command
+#### 1. Clone the Repository
 
 ```sh
 git clone https://github.com/salihRogo/se-2025.git
-```
-
-2. **Install PHP dependencies:**
-
-- Before installation of PHP, you have to navigate to backend folder
-
-```sh
-cd backend
+cd se-2025
 composer install
 ```
 
-3. **Import database credentials:**
+#### 2. Backend Setup
 
-- In order to access the database, you need to provide some information 
+```sh
+# Navigate to backend directory
+cd backend
 
-- That info should be placed in `config.php` file on backend level
+# Install PHP dependencies
+composer install
+```
 
-- The `config.php` file should have the following 
+#### 3. Database Setup
+
+1. Create a new MySQL database named `pastry-franchise`
+2. Import the database schema from `pastry-franchise.sql` file
+
+#### 4. Configuration
+
+Create a `config.php` file in the backend directory with the following content:
 
 ```php
 <?php
@@ -66,22 +90,22 @@ class Config
 {
     public static function DB_NAME()
     {
-        return '';      // Input name of database from dbeaver (pastry-franchise)
+        return 'pastry-franchise';
     }
 
     public static function DB_PORT()
     {
-        return 3306;        // Change the port of MySQL if needed (3306 left as default and commonly used)
+        return 3306;  // Default MySQL port
     }
 
     public static function DB_USER()
     {
-        return '';      // Put your user from MySQL    
+        return 'root';  // Your MySQL username
     }
 
     public static function DB_PASSWORD()
     {
-        return '';      // Put your password from MySQL
+        return '';  // Your MySQL password
     }
 
     public static function DB_HOST()
@@ -101,99 +125,129 @@ class Config
 }
 ```
 
-4. **Set up the database:**
-
-- Create a MySQL database (named `pastry-franchise`)
-
-- Import the provided SQL schema
-
-#### Frontend
-
-- In order to input constants such as base_api_url, you have to input the following code into `frontend/utils/constants.js`
-
-- get_api_base_url is set to your backend URL. Make sure that URL is correct, example is set in the following 
+Also create a `constants.js` file in the `frontend/utils` directory:
 
 ```js
 var Constants = {
   get_api_base_url: function () {
-    return "http://localhost/se-2025/backend/";     // Change this URL if needed (Apache port changed)
+    // Detect environment
+    if (window.location.hostname.includes('herokuapp.com')) {
+      // Production URL
+      return window.location.origin + "/";
+    } else {
+      // Local development URL
+      return "http://localhost/se-2025/backend/";
+    }
   },
 };
 ```
 
-#### Run it in the browser
+#### 5. Start the Application
 
-- In order to actually access this application, visit this url: `http://localhost/se-2025/frontend`. Make sure that Apache and MySQL servers are up and running.
+1. Start your local Apache and MySQL servers via XAMPP/MAMP
+2. Access the application at `http://localhost/se-2025/frontend/`
 
-## Project structure 
+## 🧪 Testing
 
-```sh 
+The project includes a comprehensive test suite built with PHPUnit. Tests cover the service layer of the application, including authentication, reservations, reviews, favorites, and shop management.
+
+### Running Tests Locally
+
+```sh
+cd backend
+composer test
+```
+
+### Test Structure
+
+The test suite is organized into the following test classes:
+
+1. **AuthServiceTest** - Tests for user authentication functionality
+   - Login with valid credentials
+   - Login with invalid credentials
+   - Login with non-existent user
+
+2. **FavouritesServiceTest** - Tests for user favorites management
+   - Get favorites by user ID
+   - Add a shop to favorites
+   - Delete a shop from favorites
+
+3. **ReservationsServiceTest** - Tests for reservation management
+   - Get reservations by user ID
+   - Add a new reservation
+   - Update reservation status
+   - Get reservations by shop ID
+
+4. **ReviewsServiceTest** - Tests for user reviews
+   - Get reviews by shop ID
+   - Add a new review
+   - Delete a review
+   - Get reviews by user ID
+
+5. **ShopsServiceTest** - Tests for shop management
+   - Get shop by ID
+   - Get all shops
+   - Add a new shop
+
+### CI/CD Testing
+
+The project uses GitHub Actions for automated testing on every push to the main branch. The workflow is defined in `.github/workflows/php-tests.yml`.
+
+## 📦 Deployment
+
+The application is deployed to Heroku with the following configuration:
+
+- **Web Server**: PHP/Apache
+- **Database**: JawsDB MySQL add-on
+- **Environment Variables**:
+  - `JWT_SECRET`: Secret key for JWT token generation/validation
+  - `DATABASE_URL`: Automatically provided by JawsDB
+
+### Deployment Process
+
+1. Push changes to GitHub
+2. GitHub Actions runs tests to ensure code quality
+3. Upon successful tests, Heroku automatically deploys the application
+
+## 📂 Project Structure
+
+```
 se-2025/
 │
 ├── backend/
 │   ├── .htaccess
 │   ├── composer.json
-│   ├── composer.lock
-│   ├── index.php
-│   ├── config.php         # (to be created by you, see README)
-│   └── rest/
-│       ├── dao/
-│       │   ├── AuthDao.class.php
-│       │   ├── BaseDao.class.php
-│       │   ├── FavouritesDao.class.php
-│       │   ├── ReservationsDao.class.php
-│       │   ├── ReviewsDao.class.php
-│       │   ├── ShopsDao.class.php
-│       │   └── UsersDao.class.php
-│       ├── routes/
-│       │   ├── admin_routes.php
-│       │   └── ... (other route files)
-│       └── services/
-│           └── ... (service files)
+│   ├── config_loader.php    # Environment configuration loader
+│   ├── config.heroku.php    # Heroku environment configuration
+│   ├── config.php           # Local environment configuration (created by user)
+│   ├── index.php            # API entry point
+│   ├── rest/
+│   │   ├── dao/             # Data Access Objects
+│   │   ├── routes/          # API route definitions
+│   │   └── services/        # Business logic services
+│   └── tests/               # PHPUnit tests
 │
 ├── frontend/
-│   ├── index.html
-│   ├── assets/
-│   │   ├── css/
-│   │   ├── img/
-│   │   ├── js/
-│   │   └── webfonts/
-│   ├── help-documentation/
-│   │   ├── IMD-License.txt
-│   │   ├── index.html
-│   │   ├── css/
-│   │   ├── images/
-│   │   └── js/
-│   ├── pages/
-│   │   ├── 404.html
-│   │   ├── about.html
-│   │   ├── admin/
-│   │   │   ├── dashboard.html
-│   │   │   ├── manage-users.html
-│   │   │   └── manage-shops.html
-│   │   ├── cart.html
-│   │   ├── contact.html
-│   │   ├── home.html
-│   │   ├── login.html
-│   │   ├── news.html
-│   │   ├── profile.html
-│   │   ├── single-news.html
-│   │   └── single-shop.html
-│   ├── services/
-│   │   ├── admin.js
-│   │   ├── favourites.js
-│   │   ├── helper.js
-│   │   ├── reservations.js
-│   │   ├── reviews.js
-│   │   ├── script.js
-│   │   ├── shops.js
-│   │   └── users.js
-│   └── utils/
-│       ├── constants.js        # (to be created by user, see README)
-│       ├── form_validation.js
-│       ├── rest_client.js
-│       └── utils.js
+│   ├── index.html           # Main entry point
+│   ├── assets/              # Static assets (CSS, JS, images)
+│   ├── pages/               # HTML pages
+│   ├── services/            # Frontend services
+│   └── utils/               # Utility functions
 │
-├── README.md
-└── (other files as needed)
+├── .github/workflows/       # GitHub Actions CI/CD configuration
+├── composer.json            # Root composer file for Heroku
+└── README.md                # This file
 ```
+
+## 👥 Contributors
+
+- Salih Rogo (@salihRogo)
+- Mirna Ljiljić (@ljirna)
+
+## 📄 License
+
+This project is proprietary software.
+
+---
+
+For any questions or support, please contact the project maintainers.
