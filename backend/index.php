@@ -44,6 +44,12 @@ Flight::route('/*', function () {
     if ($req_method == 'GET' && $req_url == "/home/shops") {
         return TRUE;
     }
+    if ($req_method == 'GET' && preg_match('#^/shops/\d+$#', $req_url)) {
+        return TRUE;
+    }
+    if ($req_method == 'GET' && preg_match('#^/shop/reviews/\d+$#', $req_url)) {
+        return TRUE;
+    }
     if (preg_match('#^/admin/#', $req_url)) {
         $user = Flight::auth_service()->get_current_user();
         if (!$user || $user['role'] !== Roles::ADMIN) {
